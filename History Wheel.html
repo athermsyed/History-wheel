@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Spin the Years &middot; A World Timeline 1945&ndash;2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#faf8f2;font-family:'Quicksand',sans-serif;-webkit-font-smoothing:antialiased;color:#173a36;overflow-x:hidden}
+  ::selection{background:#ff6f5b;color:#fff}
+  @keyframes floatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+  @keyframes imgfade{from{opacity:0}to{opacity:1}}
+  .evcard{transition:transform .35s ease,box-shadow .35s ease}
+  .evcard:hover{transform:translateY(-6px);box-shadow:0 22px 46px rgba(18,67,61,.22)}
+  .chip{transition:transform .12s ease,background .18s ease,color .18s ease,border-color .18s ease}
+  .chip:hover{transform:translateY(-2px)}
+  .ctrlbtn{transition:transform .1s,background .18s,color .18s}
+  .ctrlbtn:hover{background:#149e8e;color:#fff;border-color:#149e8e}
+  .ctrlbtn:active{transform:translateY(1px)}
+  .ev-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:imgfade .5s ease both}
+  .ev-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:84px;filter:saturate(.9)}
+
+  /* Page shell */
+  .bg{position:relative;min-height:100vh;background:radial-gradient(circle at 50% 8%,#ffffff 0%,#f3efe4 60%,#ece6d8 100%);overflow-x:hidden}
+  .dots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(20,158,142,.18) 1px,transparent 1.6px);background-size:32px 32px;opacity:.5;-webkit-mask-image:linear-gradient(to bottom,#000 0%,transparent 42%);mask-image:linear-gradient(to bottom,#000 0%,transparent 42%)}
+
+  /* Hero */
+  .hero{position:relative;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(36px,7vw,64px) 16px 28px;gap:8px}
+  .eyebrow{font-family:'Quicksand';letter-spacing:.4em;font-size:12px;font-weight:600;color:#e0563f;text-transform:uppercase;text-align:center}
+  .title{font-family:'Cormorant Garamond';font-weight:700;font-size:clamp(38px,9vw,64px);line-height:.96;margin:2px 0 0;letter-spacing:.01em;text-align:center;color:#12433d;white-space:nowrap}
+  .subtitle{font-size:clamp(14px,3.4vw,15px);color:#5f726e;margin:8px 0 clamp(20px,5vw,30px);text-align:center;max-width:430px}
+
+  .slot-assembly{position:relative;display:flex;align-items:flex-start;justify-content:center}
+  .frame{position:relative;padding:16px;border-radius:22px;background:linear-gradient(150deg,#ffffff 0%,#d4dad9 38%,#a7b3b0 60%,#eef1ef 100%);box-shadow:0 26px 56px rgba(18,67,61,.28),inset 0 2px 3px rgba(255,255,255,.9),inset 0 -3px 6px rgba(0,0,0,.16)}
+  .bezel{padding:6px;border-radius:14px;background:linear-gradient(#0c8175,#149e8e 50%,#0a6e64);box-shadow:inset 0 1px 2px rgba(255,255,255,.35)}
+  .viewport{position:relative;width:clamp(186px,62vw,234px);height:276px;overflow:hidden;border-radius:9px;background:linear-gradient(#ffffff,#eef2ec);cursor:grab;touch-action:none;box-shadow:inset 0 3px 8px rgba(13,80,72,.26),inset 0 -3px 8px rgba(13,80,72,.2)}
+  .reel{position:absolute;top:0;left:0;right:0;will-change:transform}
+  .row{height:92px;display:flex;align-items:center;justify-content:center;font-family:'Quicksand';font-weight:700;font-size:48px;letter-spacing:.01em;color:#12433d}
+  .ov-cyl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(15,52,47,.5) 0%,rgba(15,52,47,.08) 24%,rgba(255,255,255,0) 50%,rgba(15,52,47,.08) 76%,rgba(15,52,47,.5) 100%)}
+  .ov-sheen{position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,0) 26%)}
+  .ov-band{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:92px;pointer-events:none;border-top:2px solid rgba(255,111,91,.92);border-bottom:2px solid rgba(255,111,91,.92);background:rgba(255,111,91,.08)}
+  .ptr-l{position:absolute;left:6px;top:50%;transform:translateY(-50%);width:0;height:0;pointer-events:none;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:12px solid #ff6f5b}
+  .ptr-r{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:0;height:0;pointer-events:none;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:12px solid #ff6f5b}
+
+  .lever{position:absolute;left:100%;top:26px;margin-left:8px;width:46px;height:196px;border:none;background:transparent;cursor:pointer;padding:0}
+  .lever-base{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:16px;height:24px;border-radius:4px;background:linear-gradient(#dfe3e1,#9fa9a6)}
+  .lever-arm{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);transition:transform .19s cubic-bezier(.3,1.4,.5,1)}
+  .lever-rod{width:9px;height:148px;margin:0 auto;background:linear-gradient(90deg,#a7b3b0,#eef1ef 45%,#9fa9a6);border-radius:5px}
+  .lever-knob{width:34px;height:34px;margin:-6px auto 0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9384,#ff6f5b 58%,#d8442f);box-shadow:0 6px 14px rgba(18,67,61,.4),inset 0 2px 3px rgba(255,255,255,.55)}
+
+  /* Step controls (touch friendly, esp. mobile where lever is hidden) */
+  .steppers{display:flex;gap:12px;margin-top:18px}
+  .stepbtn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;border-radius:30px;padding:10px 18px;font-family:'Quicksand';font-weight:600;font-size:13px;letter-spacing:.04em;border:1.5px solid #149e8e;background:#fff;color:#0e6f64}
+  .spinbtn{border:none;background:linear-gradient(#ff8a76,#ff6f5b 60%,#e2553f);color:#fff;box-shadow:0 8px 18px rgba(226,85,63,.35)}
+
+  .scrollhint{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:30px;color:#0e8a7d}
+  .scrollhint .lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+  .scrollhint .arr{font-size:18px;animation:bob 1.8s ease-in-out infinite}
+
+  /* Events */
+  .events{position:relative;background:linear-gradient(#f3f7f4,#eef4f0);border-top:1px solid rgba(20,158,142,.3)}
+  .events-inner{max-width:1240px;margin:0 auto;padding:clamp(34px,6vw,48px) clamp(16px,5vw,32px) 80px;animation:floatUp .5s ease both}
+  .ev-header{display:flex;align-items:flex-end;gap:clamp(14px,4vw,30px);flex-wrap:wrap;border-bottom:1px solid rgba(20,158,142,.28);padding-bottom:20px;margin-bottom:22px}
+  .ev-year{font-family:'Cormorant Garamond';font-weight:700;font-size:clamp(74px,22vw,150px);line-height:.78;letter-spacing:-.01em;color:#12433d}
+  .ev-eyebrow{font-family:'Quicksand';letter-spacing:.32em;font-size:11px;font-weight:600;color:#e0563f;text-transform:uppercase;margin-bottom:9px}
+  .ev-theme{font-family:'Cormorant Garamond';font-style:italic;font-weight:600;font-size:clamp(19px,5vw,27px);line-height:1.24;color:#13776c}
+  .ev-moments{font-size:12px;color:#7c8b88;letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
+  .filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:26px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:18px}
+  .evcard{position:relative;min-height:330px;border-radius:8px;overflow:hidden;border:1px solid rgba(18,67,61,.12);background:#0e1f1c;box-shadow:0 8px 22px rgba(18,67,61,.1)}
+  .ev-accent{position:absolute;top:0;left:0;right:0;height:4px;z-index:3}
+  .ev-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to top,rgba(8,22,20,.97) 0%,rgba(8,22,20,.74) 36%,rgba(8,22,20,.05) 66%,rgba(8,22,20,0) 100%)}
+  .ev-top{position:absolute;top:16px;left:16px;right:16px;z-index:4;display:flex;align-items:center;justify-content:space-between;gap:8px;pointer-events:none}
+  .ev-date{background:rgba(8,22,20,.66);backdrop-filter:blur(4px);padding:5px 10px;font-family:'Quicksand';font-weight:600;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+  .ev-cat{padding:5px 11px;border-radius:30px;font-family:'Quicksand';font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+  .ev-bottom{position:absolute;left:20px;right:20px;bottom:20px;z-index:4;pointer-events:none}
+  .ev-title{font-family:'Cormorant Garamond';font-weight:700;font-size:27px;line-height:1.05;color:#fbfaf3;margin-bottom:7px}
+  .ev-desc{font-size:13.5px;line-height:1.46;color:#cdd8d4}
+  .empty{padding:40px 0;color:#7c8b88;font-size:15px}
+
+  /* footer */
+  .foot{text-align:center;font-size:11px;color:#9aa9a5;letter-spacing:.1em;text-transform:uppercase;padding:0 0 30px}
+
+  /* Mobile */
+  @media (max-width:560px){
+    .lever{display:none}
+    .title{white-space:normal}
+    .evcard{min-height:300px}
+  }
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="dots"></div>
+
+  <!-- ============ HERO / SLOT REEL ============ -->
+  <section class="hero">
+    <div class="eyebrow">A World Timeline &middot; 1945&ndash;2026</div>
+    <h1 class="title">Spin the Years</h1>
+    <div class="subtitle">Pull the lever, drag the reel, or step it year by year. Land on a year to scan the moments that shaped the world.</div>
+
+    <div class="slot-assembly">
+      <div class="frame">
+        <div class="bezel">
+          <div class="viewport" id="vp">
+            <div class="reel" id="reel"></div>
+            <div class="ov-cyl"></div>
+            <div class="ov-sheen"></div>
+            <div class="ov-band"></div>
+            <div class="ptr-l"></div>
+            <div class="ptr-r"></div>
+          </div>
+        </div>
+        <button class="lever" id="lever" aria-label="Pull lever to spin">
+          <div class="lever-base"></div>
+          <div class="lever-arm" id="leverArm">
+            <div class="lever-rod"></div>
+            <div class="lever-knob"></div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="steppers">
+      <button class="stepbtn" id="olderBtn" aria-label="Older year">&#9650; Older</button>
+      <button class="stepbtn spinbtn" id="spinBtn">Spin</button>
+      <button class="stepbtn" id="newerBtn" aria-label="Newer year">Newer &#9660;</button>
+    </div>
+
+    <div class="scrollhint">
+      <div class="lbl">The Year in Review below</div>
+      <div class="arr">&#9662;</div>
+    </div>
+  </section>
+
+  <!-- ============ EVENTS ============ -->
+  <section class="events">
+    <div class="events-inner" id="eventsInner"></div>
+    <div class="foot">Spin the Years &middot; Photos via Wikimedia Commons</div>
+  </section>
+</div>
+
+<script>
+/* ============================================================
+   DATA: world events by year (1945-2026)
+   Each event: { cat, date, title, desc, wiki }
+     cat  - category (see CATORDER)
+     date - month/day label
+     wiki - Wikipedia article title used to load a photo
+   ============================================================ */
+const DATA = {
+1945:{theme:'A world war ends, the atomic age begins, and a new global order takes shape.',events:[
+ {cat:'Politics',date:'Feb',title:'The Yalta Conference',desc:'Roosevelt, Churchill, and Stalin meet to plan the postwar world and the division of Europe.',wiki:'Yalta Conference'},
+ {cat:'Politics',date:'Apr 12',title:'Roosevelt Dies, Truman Rises',desc:'President Franklin Roosevelt dies in office; Harry Truman inherits a war and the bomb.',wiki:'Death of Franklin D. Roosevelt'},
+ {cat:'Conflict',date:'Apr 30',title:'Hitler Dies in Berlin',desc:'Adolf Hitler takes his own life in his bunker as Soviet forces close in on the capital.',wiki:'Death of Adolf Hitler'},
+ {cat:'Conflict',date:'May 8',title:'Victory in Europe',desc:'Nazi Germany surrenders unconditionally, ending nearly six years of war in Europe.',wiki:'Victory in Europe Day'},
+ {cat:'Politics',date:'Jun 26',title:'The United Nations Is Born',desc:'Fifty nations sign the UN Charter in San Francisco, founding a new global body for peace.',wiki:'United Nations'},
+ {cat:'Conflict',date:'Aug 6',title:'Atomic Bombs Dropped',desc:'The United States drops atomic bombs on Hiroshima and Nagasaki, opening the nuclear age.',wiki:'Atomic bombings of Hiroshima and Nagasaki'},
+ {cat:'Conflict',date:'Sep 2',title:'World War II Ends',desc:'Japan formally surrenders aboard the USS Missouri, ending the deadliest war in history.',wiki:'Surrender of Japan'}
+]},
+1946:{theme:'The wartime alliance fractures and the Cold War’s outlines appear.',events:[
+ {cat:'Politics',date:'Jan 10',title:'First UN Assembly Meets',desc:'The United Nations General Assembly convenes for the first time in London.',wiki:'United Nations General Assembly'},
+ {cat:'Technology',date:'Feb 14',title:'ENIAC Unveiled',desc:'The first general-purpose electronic computer is revealed, filling a room and changing the future.',wiki:'ENIAC'},
+ {cat:'Politics',date:'Mar 5',title:'The Iron Curtain Speech',desc:'Winston Churchill warns that an “iron curtain” has descended across Europe.',wiki:'Iron Curtain'},
+ {cat:'Politics',date:'Jun 2',title:'Italy Becomes a Republic',desc:'Italians vote to abolish the monarchy and found a new republic.',wiki:'1946 Italian institutional referendum'},
+ {cat:'Politics',date:'Oct 1',title:'Nuremberg Verdicts',desc:'Nazi leaders are convicted of war crimes at the landmark Nuremberg trials.',wiki:'Nuremberg trials'}
+]},
+1947:{theme:'Empires recede, the Cold War hardens, and a transistor quietly changes everything.',events:[
+ {cat:'Politics',date:'Mar 12',title:'The Truman Doctrine',desc:'The US pledges to contain communism, defining the strategy of the Cold War.',wiki:'Truman Doctrine'},
+ {cat:'Sports',date:'Apr 15',title:'Jackie Robinson Breaks the Barrier',desc:'Robinson integrates Major League Baseball, a milestone for the civil rights era.',wiki:'Jackie Robinson'},
+ {cat:'Finance',date:'Jun 5',title:'The Marshall Plan',desc:'The US launches a vast aid program to rebuild a shattered Western Europe.',wiki:'Marshall Plan'},
+ {cat:'Politics',date:'Aug 15',title:'India and Pakistan Independence',desc:'British India is partitioned into two nations amid jubilation and mass displacement.',wiki:'Partition of India'},
+ {cat:'Space',date:'Oct 14',title:'Breaking the Sound Barrier',desc:'Chuck Yeager flies faster than sound for the first time in the Bell X-1.',wiki:'Chuck Yeager'},
+ {cat:'Technology',date:'Dec 16',title:'The Transistor Is Invented',desc:'Bell Labs creates the transistor, the tiny switch that powers the modern world.',wiki:'Transistor'}
+]},
+1948:{theme:'New nations rise, Berlin is besieged, and the world codifies human rights.',events:[
+ {cat:'Politics',date:'Jan 30',title:'Gandhi Assassinated',desc:'Mohandas Gandhi, leader of India’s nonviolent independence movement, is shot dead.',wiki:'Assassination of Mahatma Gandhi'},
+ {cat:'Health',date:'Apr 7',title:'The WHO Is Founded',desc:'The World Health Organization is established to coordinate global public health.',wiki:'World Health Organization'},
+ {cat:'Politics',date:'May 14',title:'Israel Declares Independence',desc:'The State of Israel is proclaimed, sparking the first Arab-Israeli war.',wiki:'Israeli Declaration of Independence'},
+ {cat:'Conflict',date:'Jun 24',title:'The Berlin Blockade',desc:'The USSR cuts off West Berlin; the West responds with a massive airlift of supplies.',wiki:'Berlin Blockade'},
+ {cat:'Politics',date:'Dec 10',title:'Universal Human Rights',desc:'The UN adopts the Universal Declaration of Human Rights.',wiki:'Universal Declaration of Human Rights'}
+]},
+1949:{theme:'Communism triumphs in China, the bomb spreads, and the Western alliance forms.',events:[
+ {cat:'Politics',date:'Apr 4',title:'NATO Is Founded',desc:'Twelve nations form a military alliance to counter Soviet power in Europe.',wiki:'NATO'},
+ {cat:'Politics',date:'May 23',title:'West Germany Established',desc:'The Federal Republic of Germany is founded; East Germany follows in the fall.',wiki:'West Germany'},
+ {cat:'Conflict',date:'Aug 29',title:'Soviets Test the Bomb',desc:'The USSR detonates its first atomic weapon, ending the US nuclear monopoly.',wiki:'RDS-1'},
+ {cat:'Politics',date:'Oct 1',title:'The People’s Republic of China',desc:'Mao Zedong proclaims a communist China after decades of civil war.',wiki:'Proclamation of the People\'s Republic of China'},
+ {cat:'Culture',date:'Jun 8',title:'Orwell’s 1984 Published',desc:'George Orwell’s dystopian novel gives the Cold War its lasting vocabulary.',wiki:'Nineteen Eighty-Four'}
+]},
+1950:{theme:'War returns to Korea and a Red Scare grips America.',events:[
+ {cat:'Politics',date:'Feb 9',title:'McCarthy’s Red Scare',desc:'Senator Joseph McCarthy claims communists have infiltrated the government, igniting a witch hunt.',wiki:'McCarthyism'},
+ {cat:'Conflict',date:'Jun 25',title:'The Korean War Begins',desc:'North Korea invades the South, drawing in the US, China, and the UN.',wiki:'Korean War'},
+ {cat:'Technology',date:'Oct',title:'The Turing Test',desc:'Alan Turing proposes a test for machine intelligence, founding the field of AI.',wiki:'Turing test'},
+ {cat:'Conflict',date:'Sep 15',title:'The Inchon Landing',desc:'A daring amphibious assault turns the tide of the Korean War.',wiki:'Battle of Inchon'},
+ {cat:'Culture',date:'Oct 2',title:'Peanuts Debuts',desc:'Charles Schulz’s comic strip introduces Charlie Brown and Snoopy to the world.',wiki:'Peanuts'}
+]},
+1951:{theme:'Computers go commercial and atoms first light a bulb.',events:[
+ {cat:'Technology',date:'Mar 31',title:'UNIVAC I Delivered',desc:'The first commercial computer is sold, beginning the age of business computing.',wiki:'UNIVAC I'},
+ {cat:'Politics',date:'Feb 27',title:'Presidential Term Limits',desc:'The 22nd Amendment caps US presidents at two terms.',wiki:'Twenty-second Amendment to the United States Constitution'},
+ {cat:'Politics',date:'Sep 8',title:'Peace With Japan',desc:'The Treaty of San Francisco formally ends the Pacific war and restores Japanese sovereignty.',wiki:'Treaty of San Francisco'},
+ {cat:'Technology',date:'Dec 20',title:'Atomic Power Lights a Bulb',desc:'Reactor EBR-I produces the first usable electricity from nuclear energy.',wiki:'Experimental Breeder Reactor I'},
+ {cat:'Culture',date:'Oct 15',title:'I Love Lucy Premieres',desc:'Lucille Ball’s sitcom reinvents television comedy.',wiki:'I Love Lucy'}
+]},
+1952:{theme:'A young queen, a hydrogen bomb, and London chokes on smog.',events:[
+ {cat:'Politics',date:'Feb 6',title:'Elizabeth II Becomes Queen',desc:'The 25-year-old princess ascends the British throne on her father’s death.',wiki:'Elizabeth II'},
+ {cat:'Politics',date:'Nov 4',title:'Eisenhower Elected',desc:'War hero Dwight Eisenhower wins the US presidency in a landslide.',wiki:'1952 United States presidential election'},
+ {cat:'Conflict',date:'Nov 1',title:'The Hydrogen Bomb',desc:'The US detonates the first thermonuclear weapon, dwarfing earlier atomic bombs.',wiki:'Ivy Mike'},
+ {cat:'Disaster',date:'Dec 5',title:'The Great Smog of London',desc:'Lethal smog blankets London for days, killing thousands and spurring clean-air laws.',wiki:'Great Smog of London'}
+]},
+1953:{theme:'Stalin dies, Everest falls, and life’s blueprint is revealed.',events:[
+ {cat:'Politics',date:'Mar 5',title:'Stalin Dies',desc:'The death of the Soviet dictator sets off a struggle for power in the Kremlin.',wiki:'Death of Joseph Stalin'},
+ {cat:'Health',date:'Apr 25',title:'The Double Helix',desc:'Watson and Crick reveal the structure of DNA, unlocking the code of life.',wiki:'Nucleic acid double helix'},
+ {cat:'Climate',date:'May 29',title:'Conquest of Everest',desc:'Edmund Hillary and Tenzing Norgay become the first to summit the world’s highest peak.',wiki:'1953 British Mount Everest expedition'},
+ {cat:'Conflict',date:'Jul 27',title:'Korean War Armistice',desc:'An armistice halts the fighting in Korea, leaving the peninsula divided.',wiki:'Korean Armistice Agreement'},
+ {cat:'Politics',date:'Aug 19',title:'The Iran Coup',desc:'A US- and UK-backed coup overthrows Iran’s elected prime minister Mossadegh.',wiki:'1953 Iranian coup d\'état'}
+]},
+1954:{theme:'Segregation struck down, colonial empires retreat, and science marches on.',events:[
+ {cat:'Conflict',date:'May 7',title:'Fall of Dien Bien Phu',desc:'France’s defeat in Vietnam ends its empire in Indochina.',wiki:'Battle of Dien Bien Phu'},
+ {cat:'Politics',date:'May 17',title:'Brown v. Board of Education',desc:'The US Supreme Court rules school segregation unconstitutional.',wiki:'Brown v. Board of Education'},
+ {cat:'Sports',date:'May 6',title:'The Four-Minute Mile',desc:'Roger Bannister shatters a barrier long thought impossible.',wiki:'Roger Bannister'},
+ {cat:'Health',date:'Apr 26',title:'Polio Vaccine Trials',desc:'Jonas Salk’s vaccine enters mass field trials against a feared disease.',wiki:'Polio vaccine'},
+ {cat:'Technology',date:'Sep 30',title:'First Nuclear Submarine',desc:'The USS Nautilus is commissioned, transforming naval warfare.',wiki:'USS Nautilus (SSN-571)'}
+]},
+1955:{theme:'A bus boycott sparks a movement and polio meets its match.',events:[
+ {cat:'Health',date:'Apr 12',title:'Polio Vaccine Works',desc:'Salk’s vaccine is declared safe and effective, ending years of fear.',wiki:'Polio vaccine'},
+ {cat:'Conflict',date:'May 14',title:'The Warsaw Pact',desc:'The Soviet bloc forms its own military alliance to counter NATO.',wiki:'Warsaw Pact'},
+ {cat:'Culture',date:'Jul 17',title:'Disneyland Opens',desc:'Walt Disney’s theme park opens in California, redefining family entertainment.',wiki:'Disneyland'},
+ {cat:'Politics',date:'Dec 1',title:'Rosa Parks and the Boycott',desc:'Parks’s refusal to give up her seat launches the Montgomery Bus Boycott.',wiki:'Montgomery bus boycott'}
+]},
+1956:{theme:'Cold War crises in Suez and Budapest test the new world order.',events:[
+ {cat:'Conflict',date:'Oct 29',title:'The Suez Crisis',desc:'Britain, France, and Israel invade Egypt over the Suez Canal, then retreat under pressure.',wiki:'Suez Crisis'},
+ {cat:'Conflict',date:'Nov 4',title:'Hungarian Uprising Crushed',desc:'Soviet tanks roll into Budapest to put down a popular revolt.',wiki:'Hungarian Revolution of 1956'},
+ {cat:'Technology',date:'Sep 13',title:'The First Hard Drive',desc:'IBM’s RAMAC introduces magnetic disk storage to computing.',wiki:'IBM 305 RAMAC'},
+ {cat:'Technology',date:'Aug 31',title:'Artificial Intelligence Named',desc:'The Dartmouth workshop coins the term and launches AI as a field.',wiki:'Dartmouth workshop'}
+]},
+1957:{theme:'A beeping sphere opens the Space Age and rattles America.',events:[
+ {cat:'Politics',date:'Mar 25',title:'The Treaty of Rome',desc:'Six nations sign the treaty that becomes the foundation of the European Union.',wiki:'Treaty of Rome'},
+ {cat:'Politics',date:'Sep 25',title:'The Little Rock Nine',desc:'Federal troops escort Black students into a segregated Arkansas high school.',wiki:'Little Rock Nine'},
+ {cat:'Space',date:'Oct 4',title:'Sputnik Launches',desc:'The USSR puts the first satellite in orbit, igniting the Space Race.',wiki:'Sputnik 1'},
+ {cat:'Space',date:'Nov 3',title:'Laika in Orbit',desc:'A dog becomes the first living creature to circle the Earth aboard Sputnik 2.',wiki:'Laika'},
+ {cat:'Health',date:'Feb',title:'Asian Flu Pandemic',desc:'A new influenza strain spreads worldwide, killing more than a million people.',wiki:'1957–1958 influenza pandemic'}
+]},
+1958:{theme:'America answers Sputnik and the microchip is born.',events:[
+ {cat:'Space',date:'Jan 31',title:'Explorer 1',desc:'America launches its first satellite, joining the Space Race.',wiki:'Explorer 1'},
+ {cat:'Space',date:'Jul 29',title:'NASA Is Created',desc:'The US founds a civilian space agency to lead its push beyond Earth.',wiki:'NASA'},
+ {cat:'Technology',date:'Sep 12',title:'The Integrated Circuit',desc:'Jack Kilby builds the first microchip, the seed of all modern electronics.',wiki:'Integrated circuit'},
+ {cat:'Politics',date:'May',title:'The Great Leap Forward',desc:'Mao launches a radical campaign that leads to history’s deadliest famine.',wiki:'Great Leap Forward'}
+]},
+1959:{theme:'Revolution in Cuba and the Moon within reach.',events:[
+ {cat:'Politics',date:'Jan 1',title:'The Cuban Revolution',desc:'Fidel Castro’s rebels seize power, installing a communist state off Florida’s coast.',wiki:'Cuban Revolution'},
+ {cat:'Politics',date:'Mar 17',title:'The Dalai Lama Flees',desc:'A failed uprising against Chinese rule sends Tibet’s leader into exile.',wiki:'1959 Tibetan uprising'},
+ {cat:'Space',date:'Sep 14',title:'Luna 2 Hits the Moon',desc:'A Soviet probe becomes the first human object to reach another world.',wiki:'Luna 2'},
+ {cat:'Culture',date:'Feb 3',title:'The Day the Music Died',desc:'A plane crash kills Buddy Holly, Ritchie Valens, and the Big Bopper.',wiki:'The Day the Music Died'}
+]},
+1960:{theme:'Africa breaks free, lasers ignite, and television elects a president.',events:[
+ {cat:'Conflict',date:'Mar 21',title:'The Sharpeville Massacre',desc:'South African police kill 69 protesters, galvanizing the fight against apartheid.',wiki:'Sharpeville massacre'},
+ {cat:'Conflict',date:'May 1',title:'The U-2 Incident',desc:'The USSR shoots down an American spy plane, deepening Cold War distrust.',wiki:'1960 U-2 incident'},
+ {cat:'Technology',date:'May 16',title:'The First Laser',desc:'Theodore Maiman builds the first working laser, a tool that reshapes science and industry.',wiki:'Laser'},
+ {cat:'Health',date:'Jun 23',title:'The Pill Approved',desc:'The FDA approves the birth control pill, transforming women’s lives.',wiki:'Combined oral contraceptive pill'},
+ {cat:'Politics',date:'Nov',title:'The Year of Africa',desc:'Seventeen African nations gain independence in a single year.',wiki:'Year of Africa'}
+]},
+1961:{theme:'Humanity reaches space as a wall divides Berlin.',events:[
+ {cat:'Conflict',date:'Apr 17',title:'The Bay of Pigs',desc:'A US-backed invasion of Cuba fails spectacularly, embarrassing the new Kennedy administration.',wiki:'Bay of Pigs Invasion'},
+ {cat:'Space',date:'Apr 12',title:'First Human in Space',desc:'Yuri Gagarin orbits the Earth, a triumph for the Soviet space program.',wiki:'Vostok 1'},
+ {cat:'Space',date:'May 25',title:'The Moon Pledge',desc:'President Kennedy commits America to landing a man on the Moon by decade’s end.',wiki:'Mercury-Redstone 3'},
+ {cat:'Politics',date:'Aug 13',title:'The Berlin Wall Rises',desc:'East Germany seals off West Berlin overnight with a wall of concrete and wire.',wiki:'Berlin Wall'},
+ {cat:'Politics',date:'May 4',title:'The Freedom Riders',desc:'Activists ride buses into the segregated South to challenge Jim Crow.',wiki:'Freedom Riders'}
+]},
+1962:{theme:'The world holds its breath at the brink of nuclear war.',events:[
+ {cat:'Space',date:'Feb 20',title:'Glenn Orbits the Earth',desc:'John Glenn becomes the first American to circle the planet.',wiki:'Mercury-Atlas 6'},
+ {cat:'Technology',date:'Jul 10',title:'Telstar Beams TV',desc:'The first communications satellite relays live television across the Atlantic.',wiki:'Telstar'},
+ {cat:'Climate',date:'Sep 27',title:'Silent Spring',desc:'Rachel Carson’s book exposes the dangers of pesticides and launches the environmental movement.',wiki:'Silent Spring'},
+ {cat:'Conflict',date:'Oct 16',title:'The Cuban Missile Crisis',desc:'A thirteen-day standoff over Soviet missiles in Cuba brings the world to the nuclear edge.',wiki:'Cuban Missile Crisis'}
+]},
+1963:{theme:'A president is murdered and a dream is spoken in Washington.',events:[
+ {cat:'Space',date:'Jun 16',title:'First Woman in Space',desc:'Valentina Tereshkova orbits the Earth solo, another Soviet first.',wiki:'Vostok 6'},
+ {cat:'Politics',date:'Aug 28',title:'“I Have a Dream”',desc:'Martin Luther King Jr. addresses the March on Washington for civil rights.',wiki:'March on Washington for Jobs and Freedom'},
+ {cat:'Politics',date:'Aug 5',title:'Test Ban Treaty',desc:'The US, USSR, and UK agree to halt atmospheric nuclear tests.',wiki:'Partial Nuclear Test Ban Treaty'},
+ {cat:'Politics',date:'Nov 22',title:'JFK Assassinated',desc:'President Kennedy is shot dead in Dallas, shocking the world.',wiki:'Assassination of John F. Kennedy'}
+]},
+1964:{theme:'Civil rights become law as Vietnam pulls America in.',events:[
+ {cat:'Culture',date:'Feb 9',title:'Beatlemania Hits America',desc:'The Beatles perform on Ed Sullivan, launching the British Invasion.',wiki:'The Beatles in the United States'},
+ {cat:'Sports',date:'Feb 25',title:'Clay Shocks the World',desc:'Cassius Clay, soon Muhammad Ali, upsets Sonny Liston to win the heavyweight title.',wiki:'Muhammad Ali'},
+ {cat:'Politics',date:'Jul 2',title:'The Civil Rights Act',desc:'Landmark US legislation outlaws discrimination based on race, color, religion, sex, or origin.',wiki:'Civil Rights Act of 1964'},
+ {cat:'Conflict',date:'Aug 7',title:'Gulf of Tonkin',desc:'A disputed naval incident leads Congress to authorize escalation in Vietnam.',wiki:'Gulf of Tonkin incident'},
+ {cat:'Technology',date:'Apr 7',title:'IBM System/360',desc:'IBM unveils a family of compatible computers that dominates business for decades.',wiki:'IBM System/360'}
+]},
+1965:{theme:'Vietnam deepens and the voting booth opens wider.',events:[
+ {cat:'Politics',date:'Feb 21',title:'Malcolm X Assassinated',desc:'The influential civil rights leader is shot dead in Harlem.',wiki:'Malcolm X'},
+ {cat:'Politics',date:'Mar 7',title:'Selma to Montgomery',desc:'Marchers face brutal violence on “Bloody Sunday,” spurring the Voting Rights Act.',wiki:'Selma to Montgomery marches'},
+ {cat:'Conflict',date:'Mar 2',title:'America Escalates in Vietnam',desc:'Operation Rolling Thunder begins a sustained bombing campaign over North Vietnam.',wiki:'Operation Rolling Thunder'},
+ {cat:'Space',date:'Mar 18',title:'The First Spacewalk',desc:'Cosmonaut Alexei Leonov floats outside his capsule in orbit.',wiki:'Alexei Leonov'},
+ {cat:'Technology',date:'Apr 19',title:'Moore’s Law',desc:'Gordon Moore predicts computing power will double roughly every two years.',wiki:'Moore\'s law'}
+]},
+1966:{theme:'Mao unleashes the Cultural Revolution and probes touch the Moon.',events:[
+ {cat:'Space',date:'Feb 3',title:'First Soft Moon Landing',desc:'The Soviet Luna 9 lands gently on the Moon and sends back photos.',wiki:'Luna 9'},
+ {cat:'Politics',date:'May 16',title:'The Cultural Revolution',desc:'Mao launches a violent purge that convulses China for a decade.',wiki:'Cultural Revolution'},
+ {cat:'Sports',date:'Jul 30',title:'England Wins the World Cup',desc:'The host nation lifts football’s greatest prize for the first time.',wiki:'1966 FIFA World Cup Final'},
+ {cat:'Culture',date:'Sep 8',title:'Star Trek Premieres',desc:'Gene Roddenberry’s series imagines an optimistic, interstellar future.',wiki:'Star Trek: The Original Series'},
+ {cat:'Politics',date:'Oct 15',title:'The Black Panther Party',desc:'A new movement forms to confront police brutality and racial inequality.',wiki:'Black Panther Party'}
+]},
+1967:{theme:'War in the Middle East, a new heart, and a summer of love.',events:[
+ {cat:'Space',date:'Jan 27',title:'The Apollo 1 Fire',desc:'Three astronauts die in a launchpad fire, a tragic setback for the Moon program.',wiki:'Apollo 1'},
+ {cat:'Conflict',date:'Jun 5',title:'The Six-Day War',desc:'Israel routs its neighbors and seizes vast territory in a lightning war.',wiki:'Six-Day War'},
+ {cat:'Culture',date:'Jun',title:'The Summer of Love',desc:'A counterculture blossoms in San Francisco as the Beatles release Sgt. Pepper.',wiki:'Summer of Love'},
+ {cat:'Health',date:'Dec 3',title:'First Heart Transplant',desc:'Surgeon Christiaan Barnard performs the first human-to-human heart transplant.',wiki:'Christiaan Barnard'},
+ {cat:'Sports',date:'Jan 15',title:'The First Super Bowl',desc:'Green Bay wins the inaugural championship of American football.',wiki:'Super Bowl I'}
+]},
+1968:{theme:'A year of assassinations, uprisings, and a glimpse of Earth from the Moon.',events:[
+ {cat:'Conflict',date:'Jan 30',title:'The Tet Offensive',desc:'A surprise wave of attacks shatters American confidence in the Vietnam War.',wiki:'Tet Offensive'},
+ {cat:'Politics',date:'Apr 4',title:'MLK Assassinated',desc:'Martin Luther King Jr. is shot dead in Memphis, sparking grief and unrest.',wiki:'Assassination of Martin Luther King Jr.'},
+ {cat:'Politics',date:'Jun 6',title:'RFK Assassinated',desc:'Robert Kennedy is killed moments after winning the California primary.',wiki:'Assassination of Robert F. Kennedy'},
+ {cat:'Politics',date:'Aug 20',title:'The Prague Spring Crushed',desc:'Soviet tanks end Czechoslovakia’s experiment with reform.',wiki:'Prague Spring'},
+ {cat:'Space',date:'Dec 24',title:'Earthrise',desc:'Apollo 8 orbits the Moon and photographs the Earth rising over the lunar horizon.',wiki:'Apollo 8'}
+]},
+1969:{theme:'One small step on the Moon and the first whisper of the internet.',events:[
+ {cat:'Space',date:'Jul 20',title:'Apollo 11 Lands on the Moon',desc:'Neil Armstrong takes “one small step,” fulfilling Kennedy’s pledge.',wiki:'Apollo 11'},
+ {cat:'Culture',date:'Aug 15',title:'Woodstock',desc:'Half a million people gather for a festival that defines a generation.',wiki:'Woodstock'},
+ {cat:'Politics',date:'Jun 28',title:'The Stonewall Uprising',desc:'A police raid on a New York bar sparks the modern LGBTQ rights movement.',wiki:'Stonewall riots'},
+ {cat:'Technology',date:'Oct 29',title:'The First Internet Message',desc:'ARPANET sends its first transmission, the ancestor of the internet.',wiki:'ARPANET'},
+ {cat:'Conflict',date:'Nov 12',title:'My Lai Revealed',desc:'Reports of a massacre of Vietnamese civilians shake American opinion.',wiki:'My Lai massacre'}
+]},
+1970:{theme:'The Beatles split, Apollo 13 survives, and the environment finds its day.',events:[
+ {cat:'Space',date:'Apr 11',title:'Apollo 13’s “Successful Failure”',desc:'An explosion cripples the spacecraft, but ingenuity brings the crew home alive.',wiki:'Apollo 13'},
+ {cat:'Climate',date:'Apr 22',title:'The First Earth Day',desc:'Millions rally for the environment, launching a global movement.',wiki:'Earth Day'},
+ {cat:'Culture',date:'Apr 10',title:'The Beatles Break Up',desc:'The world’s biggest band announces its end.',wiki:'Break-up of the Beatles'},
+ {cat:'Politics',date:'May 4',title:'Kent State Shootings',desc:'National Guardsmen kill four student antiwar protesters in Ohio.',wiki:'Kent State shootings'},
+ {cat:'Health',date:'Dec 2',title:'The EPA Is Founded',desc:'The US creates an agency to protect the environment and public health.',wiki:'United States Environmental Protection Agency'}
+]},
+1971:{theme:'A new nation is born and the microprocessor sparks a revolution.',events:[
+ {cat:'Conflict',date:'Mar 26',title:'Bangladesh Is Born',desc:'A brutal war of independence creates a new nation out of East Pakistan.',wiki:'Bangladesh Liberation War'},
+ {cat:'Politics',date:'Jun 13',title:'The Pentagon Papers',desc:'Leaked documents expose government deception about the Vietnam War.',wiki:'Pentagon Papers'},
+ {cat:'Technology',date:'Nov 15',title:'The First Microprocessor',desc:'Intel’s 4004 puts a computer’s brain on a single chip.',wiki:'Intel 4004'},
+ {cat:'Technology',date:'Oct',title:'The First Email',desc:'Ray Tomlinson sends the first networked email, choosing the @ symbol.',wiki:'Email'},
+ {cat:'Politics',date:'Oct 25',title:'China Joins the UN',desc:'The People’s Republic takes China’s seat at the United Nations.',wiki:'United Nations General Assembly Resolution 2758'}
+]},
+1972:{theme:'Nixon goes to China as Watergate begins to unravel a presidency.',events:[
+ {cat:'Politics',date:'Feb 21',title:'Nixon Goes to China',desc:'A historic visit reopens relations between the US and communist China.',wiki:'1972 Nixon visit to China'},
+ {cat:'Politics',date:'Jun 17',title:'The Watergate Break-In',desc:'A botched burglary sets off the scandal that will topple a president.',wiki:'Watergate scandal'},
+ {cat:'Disaster',date:'Sep 5',title:'The Munich Massacre',desc:'Palestinian militants kill Israeli athletes at the Olympic Games.',wiki:'Munich massacre'},
+ {cat:'Technology',date:'Nov 29',title:'Pong Launches an Industry',desc:'Atari’s arcade hit kicks off the video game era.',wiki:'Pong'},
+ {cat:'Space',date:'Dec 11',title:'The Last Men on the Moon',desc:'Apollo 17 closes the era of crewed lunar landings.',wiki:'Apollo 17'}
+]},
+1973:{theme:'Oil shocks the world and a break-in shakes the White House.',events:[
+ {cat:'Politics',date:'Jan 22',title:'Roe v. Wade',desc:'The US Supreme Court establishes a constitutional right to abortion.',wiki:'Roe v. Wade'},
+ {cat:'Conflict',date:'Jan 27',title:'America Leaves Vietnam',desc:'The Paris Peace Accords end direct US involvement in the war.',wiki:'Paris Peace Accords'},
+ {cat:'Conflict',date:'Oct 6',title:'The Yom Kippur War',desc:'Egypt and Syria attack Israel, reshaping Middle East politics.',wiki:'Yom Kippur War'},
+ {cat:'Finance',date:'Oct 17',title:'The Oil Crisis',desc:'An Arab oil embargo quadruples prices and jolts the global economy.',wiki:'1973 oil crisis'},
+ {cat:'Politics',date:'Sep 11',title:'The Chilean Coup',desc:'General Pinochet overthrows President Allende in a violent coup.',wiki:'1973 Chilean coup d\'état'}
+]},
+1974:{theme:'Watergate topples a president for the first time in US history.',events:[
+ {cat:'Politics',date:'Aug 8',title:'Nixon Resigns',desc:'Facing impeachment over Watergate, Richard Nixon becomes the first US president to resign.',wiki:'Resignation of Richard Nixon'},
+ {cat:'Sports',date:'Oct 30',title:'The Rumble in the Jungle',desc:'Muhammad Ali knocks out George Foreman in Zaire to reclaim his title.',wiki:'The Rumble in the Jungle'},
+ {cat:'Health',date:'Nov 24',title:'“Lucy” Discovered',desc:'A 3.2-million-year-old fossil rewrites the story of human origins.',wiki:'Lucy (Australopithecus)'},
+ {cat:'Conflict',date:'May 18',title:'India Goes Nuclear',desc:'India conducts its first nuclear test, joining the atomic club.',wiki:'Smiling Buddha'},
+ {cat:'Culture',date:'Apr 6',title:'ABBA Conquers Europe',desc:'The Swedish group wins Eurovision and launches a global pop career.',wiki:'ABBA'}
+]},
+1975:{theme:'Saigon falls, Vietnam ends, and a tiny software startup begins.',events:[
+ {cat:'Technology',date:'Apr 4',title:'Microsoft Is Founded',desc:'Bill Gates and Paul Allen start a software company that will reshape computing.',wiki:'Microsoft'},
+ {cat:'Conflict',date:'Apr 17',title:'The Khmer Rouge Take Cambodia',desc:'A radical regime begins a genocide that kills millions.',wiki:'Khmer Rouge'},
+ {cat:'Conflict',date:'Apr 30',title:'The Fall of Saigon',desc:'North Vietnamese forces capture the southern capital, ending the war.',wiki:'Fall of Saigon'},
+ {cat:'Space',date:'Jul 17',title:'Handshake in Space',desc:'American and Soviet crews dock in orbit, a symbol of détente.',wiki:'Apollo–Soyuz'},
+ {cat:'Politics',date:'Nov 20',title:'Franco Dies',desc:'The dictator’s death opens the path to Spanish democracy.',wiki:'Francisco Franco'}
+]},
+1976:{theme:'Apple is born, Viking touches Mars, and Mao’s era ends.',events:[
+ {cat:'Technology',date:'Apr 1',title:'Apple Is Founded',desc:'Steve Jobs and Steve Wozniak start Apple in a California garage.',wiki:'Apple Inc.'},
+ {cat:'Conflict',date:'Jun 16',title:'The Soweto Uprising',desc:'South African police kill student protesters, a turning point against apartheid.',wiki:'Soweto uprising'},
+ {cat:'Space',date:'Jul 20',title:'Viking Lands on Mars',desc:'The first successful Mars lander sends back images of the red planet.',wiki:'Viking 1'},
+ {cat:'Disaster',date:'Jul 28',title:'The Tangshan Earthquake',desc:'One of the deadliest quakes in history devastates a Chinese city.',wiki:'1976 Tangshan earthquake'},
+ {cat:'Politics',date:'Sep 9',title:'Mao Zedong Dies',desc:'The death of China’s revolutionary leader opens a new era of reform.',wiki:'Mao Zedong'}
+]},
+1977:{theme:'Star Wars dawns, the Voyagers set sail, and the King dies.',events:[
+ {cat:'Culture',date:'May 25',title:'Star Wars Premieres',desc:'George Lucas’s space epic becomes a cultural phenomenon.',wiki:'Star Wars (film)'},
+ {cat:'Technology',date:'Jun 5',title:'The Apple II',desc:'One of the first mass-market personal computers reaches homes.',wiki:'Apple II'},
+ {cat:'Space',date:'Sep 5',title:'The Voyagers Launch',desc:'Twin probes begin a grand tour of the outer planets and beyond.',wiki:'Voyager program'},
+ {cat:'Culture',date:'Aug 16',title:'Elvis Dies',desc:'The King of Rock and Roll dies at Graceland, stunning fans worldwide.',wiki:'Death of Elvis Presley'},
+ {cat:'Politics',date:'Nov 19',title:'Sadat Visits Israel',desc:'Egypt’s president makes a historic trip toward peace.',wiki:'Anwar Sadat'}
+]},
+1978:{theme:'A test-tube baby, a peace at Camp David, and a tragedy at Jonestown.',events:[
+ {cat:'Health',date:'Jul 25',title:'The First IVF Baby',desc:'Louise Brown is born, the first child conceived through in vitro fertilization.',wiki:'Louise Brown'},
+ {cat:'Politics',date:'Sep 17',title:'The Camp David Accords',desc:'Egypt and Israel reach a historic framework for peace.',wiki:'Camp David Accords'},
+ {cat:'Politics',date:'Oct 16',title:'A Polish Pope',desc:'John Paul II becomes the first non-Italian pope in centuries.',wiki:'Pope John Paul II'},
+ {cat:'Disaster',date:'Nov 18',title:'The Jonestown Tragedy',desc:'More than 900 people die in a mass murder-suicide in Guyana.',wiki:'Jonestown'},
+ {cat:'Technology',date:'Jun',title:'Space Invaders',desc:'The arcade game sparks a global gaming craze.',wiki:'Space Invaders'}
+]},
+1979:{theme:'Revolution in Iran and the Soviets march into Afghanistan.',events:[
+ {cat:'Politics',date:'Feb 11',title:'The Iranian Revolution',desc:'The Shah falls and Ayatollah Khomeini founds an Islamic republic.',wiki:'Iranian Revolution'},
+ {cat:'Disaster',date:'Mar 28',title:'Three Mile Island',desc:'A partial meltdown at a US nuclear plant fuels fears about atomic power.',wiki:'Three Mile Island accident'},
+ {cat:'Politics',date:'May 4',title:'Thatcher Takes Power',desc:'Margaret Thatcher becomes Britain’s first woman prime minister.',wiki:'Margaret Thatcher'},
+ {cat:'Conflict',date:'Nov 4',title:'The Iran Hostage Crisis',desc:'Students seize the US embassy in Tehran, holding hostages for 444 days.',wiki:'Iran hostage crisis'},
+ {cat:'Conflict',date:'Dec 24',title:'Soviets Invade Afghanistan',desc:'A Soviet invasion begins a decade-long war.',wiki:'Soviet–Afghan War'}
+]},
+1980:{theme:'Smallpox is wiped out as war erupts in the Gulf.',events:[
+ {cat:'Sports',date:'Feb 22',title:'The Miracle on Ice',desc:'A US college hockey team stuns the mighty Soviet squad at the Winter Olympics.',wiki:'Miracle on Ice'},
+ {cat:'Health',date:'May 8',title:'Smallpox Eradicated',desc:'The WHO declares the ancient killer disease wiped from the Earth.',wiki:'Smallpox'},
+ {cat:'Disaster',date:'May 18',title:'Mount St. Helens Erupts',desc:'A massive volcanic blast devastates the Pacific Northwest.',wiki:'1980 eruption of Mount St. Helens'},
+ {cat:'Conflict',date:'Sep 22',title:'The Iran–Iraq War',desc:'Iraq invades Iran, beginning a brutal eight-year conflict.',wiki:'Iran–Iraq War'},
+ {cat:'Culture',date:'Dec 8',title:'John Lennon Murdered',desc:'The former Beatle is shot dead outside his New York home.',wiki:'Murder of John Lennon'}
+]},
+1981:{theme:'A new plague emerges, the Shuttle flies, and the PC arrives.',events:[
+ {cat:'Space',date:'Apr 12',title:'The Space Shuttle Flies',desc:'Columbia becomes the first reusable spacecraft to reach orbit.',wiki:'STS-1'},
+ {cat:'Health',date:'Jun 5',title:'AIDS First Reported',desc:'US health officials note a mysterious illness that becomes a global epidemic.',wiki:'HIV/AIDS'},
+ {cat:'Culture',date:'Aug 1',title:'MTV Launches',desc:'Music television debuts, transforming pop culture and the record industry.',wiki:'MTV'},
+ {cat:'Technology',date:'Aug 12',title:'The IBM PC',desc:'IBM’s personal computer sets the standard for the industry.',wiki:'IBM Personal Computer'}
+]},
+1982:{theme:'Britain and Argentina clash over the Falklands.',events:[
+ {cat:'Conflict',date:'Apr 2',title:'The Falklands War',desc:'Argentina invades the British islands, sparking a short, sharp war.',wiki:'Falklands War'},
+ {cat:'Health',date:'Dec 2',title:'The First Artificial Heart',desc:'Barney Clark receives a permanent mechanical heart.',wiki:'Jarvik-7'},
+ {cat:'Technology',date:'Aug 17',title:'The Compact Disc',desc:'The CD arrives, ushering in the age of digital music.',wiki:'Compact disc'},
+ {cat:'Culture',date:'Nov 30',title:'Thriller Released',desc:'Michael Jackson’s album becomes the best-selling record of all time.',wiki:'Thriller (album)'}
+]},
+1983:{theme:'Cold War tensions spike as the internet quietly switches on.',events:[
+ {cat:'Technology',date:'Jan 1',title:'The Internet’s Birthday',desc:'ARPANET adopts TCP/IP, the protocol that underlies today’s internet.',wiki:'Internet protocol suite'},
+ {cat:'Space',date:'Jun 18',title:'Sally Ride in Space',desc:'Ride becomes the first American woman to fly to space.',wiki:'Sally Ride'},
+ {cat:'Conflict',date:'Sep 1',title:'Flight 007 Shot Down',desc:'A Soviet jet downs a Korean airliner, killing all aboard and spiking tensions.',wiki:'Korean Air Lines Flight 007'},
+ {cat:'Conflict',date:'Sep 26',title:'The Man Who Saved the World',desc:'Soviet officer Stanislav Petrov judges a missile alert false, averting nuclear war.',wiki:'1983 Soviet nuclear false alarm incident'}
+]},
+1984:{theme:'Bhopal’s tragedy, a famine’s anguish, and the Macintosh debut.',events:[
+ {cat:'Technology',date:'Jan 24',title:'The Macintosh',desc:'Apple’s computer brings the graphical interface to the masses.',wiki:'Macintosh 128K'},
+ {cat:'Politics',date:'Oct 31',title:'Indira Gandhi Assassinated',desc:'India’s prime minister is killed by her own bodyguards.',wiki:'Assassination of Indira Gandhi'},
+ {cat:'Disaster',date:'Dec 3',title:'The Bhopal Disaster',desc:'A toxic gas leak in India kills thousands in history’s worst industrial accident.',wiki:'Bhopal disaster'},
+ {cat:'Disaster',date:'Oct',title:'The Ethiopian Famine',desc:'A devastating famine prompts the global Live Aid response.',wiki:'1983–1985 famine in Ethiopia'},
+ {cat:'Sports',date:'Jul 28',title:'The Los Angeles Olympics',desc:'A commercially successful Games revives the Olympic movement.',wiki:'1984 Summer Olympics'}
+]},
+1985:{theme:'Gorbachev opens the USSR as Live Aid unites the world.',events:[
+ {cat:'Politics',date:'Mar 11',title:'Gorbachev Takes Power',desc:'A reformer becomes Soviet leader, launching glasnost and perestroika.',wiki:'Mikhail Gorbachev'},
+ {cat:'Culture',date:'Jul 13',title:'Live Aid',desc:'A global concert raises money and awareness for African famine relief.',wiki:'Live Aid'},
+ {cat:'Climate',date:'May 16',title:'The Ozone Hole',desc:'Scientists discover a growing hole in the ozone layer over Antarctica.',wiki:'Ozone depletion'},
+ {cat:'Technology',date:'Sep 13',title:'Super Mario Bros.',desc:'Nintendo’s game helps revive and define the video game industry.',wiki:'Super Mario Bros.'},
+ {cat:'Disaster',date:'Sep 1',title:'The Titanic Found',desc:'Explorers locate the famous shipwreck on the Atlantic floor.',wiki:'Wreck of the Titanic'}
+]},
+1986:{theme:'Challenger falls and Chernobyl burns in a year of catastrophe.',events:[
+ {cat:'Space',date:'Jan 28',title:'The Challenger Disaster',desc:'The space shuttle breaks apart after launch, killing all seven crew.',wiki:'Space Shuttle Challenger disaster'},
+ {cat:'Politics',date:'Feb 25',title:'People Power in Manila',desc:'A peaceful uprising ousts Philippine dictator Ferdinand Marcos.',wiki:'People Power Revolution'},
+ {cat:'Disaster',date:'Apr 26',title:'The Chernobyl Disaster',desc:'A reactor explosion in Ukraine becomes history’s worst nuclear accident.',wiki:'Chernobyl disaster'},
+ {cat:'Technology',date:'Jan',title:'The First PC Virus',desc:'“Brain” spreads on floppy disks, an early sign of the cyber age.',wiki:'Brain (computer virus)'}
+]},
+1987:{theme:'Markets crash on Black Monday as superpowers cut their arsenals.',events:[
+ {cat:'Politics',date:'Jun 12',title:'“Tear Down This Wall”',desc:'Reagan challenges Gorbachev to open the Berlin Wall.',wiki:'Tear down this wall!'},
+ {cat:'Finance',date:'Oct 19',title:'Black Monday',desc:'Stock markets crash worldwide in the largest one-day percentage drop in history.',wiki:'Black Monday (1987)'},
+ {cat:'Politics',date:'Dec 8',title:'The INF Treaty',desc:'The US and USSR agree to eliminate an entire class of nuclear missiles.',wiki:'Intermediate-Range Nuclear Forces Treaty'},
+ {cat:'Conflict',date:'Dec 9',title:'The First Intifada',desc:'A Palestinian uprising erupts in the occupied territories.',wiki:'First Intifada'}
+]},
+1988:{theme:'A worm tests the internet as the climate alarm first sounds.',events:[
+ {cat:'Climate',date:'Jun 23',title:'The Climate Warning',desc:'NASA scientist James Hansen tells Congress global warming has begun.',wiki:'James Hansen'},
+ {cat:'Conflict',date:'Aug 20',title:'The Iran–Iraq War Ends',desc:'A ceasefire halts one of the bloodiest wars of the century.',wiki:'Iran–Iraq War'},
+ {cat:'Technology',date:'Nov 2',title:'The Morris Worm',desc:'A self-replicating program cripples thousands of computers, a wake-up call for security.',wiki:'Morris worm'},
+ {cat:'Disaster',date:'Dec 21',title:'The Lockerbie Bombing',desc:'A terrorist bomb destroys Pan Am Flight 103 over Scotland.',wiki:'Pan Am Flight 103'}
+]},
+1989:{theme:'The Berlin Wall falls and the World Wide Web is conceived.',events:[
+ {cat:'Technology',date:'Mar 12',title:'The Web Is Proposed',desc:'Tim Berners-Lee outlines the World Wide Web at CERN.',wiki:'World Wide Web'},
+ {cat:'Disaster',date:'Mar 24',title:'The Exxon Valdez Spill',desc:'A tanker runs aground in Alaska, fouling the coast with crude oil.',wiki:'Exxon Valdez oil spill'},
+ {cat:'Conflict',date:'Jun 4',title:'Tiananmen Square',desc:'Chinese troops crush pro-democracy protests in Beijing.',wiki:'1989 Tiananmen Square protests and massacre'},
+ {cat:'Politics',date:'Nov 9',title:'The Berlin Wall Falls',desc:'East Germans pour through the wall, signaling the end of the Cold War.',wiki:'Fall of the Berlin Wall'},
+ {cat:'Politics',date:'Dec',title:'Revolutions Sweep Europe',desc:'Communist regimes collapse across Eastern Europe in a matter of months.',wiki:'Revolutions of 1989'}
+]},
+1990:{theme:'Mandela walks free and Germany becomes whole again.',events:[
+ {cat:'Politics',date:'Feb 11',title:'Mandela Walks Free',desc:'Nelson Mandela is released after 27 years in prison.',wiki:'Nelson Mandela'},
+ {cat:'Space',date:'Apr 24',title:'The Hubble Telescope',desc:'A space telescope launches to give humanity its clearest view of the cosmos.',wiki:'Hubble Space Telescope'},
+ {cat:'Conflict',date:'Aug 2',title:'Iraq Invades Kuwait',desc:'Saddam Hussein’s invasion triggers an international coalition response.',wiki:'Invasion of Kuwait'},
+ {cat:'Politics',date:'Oct 3',title:'Germany Reunified',desc:'East and West Germany become one nation again.',wiki:'German reunification'}
+]},
+1991:{theme:'The Soviet Union collapses and the Web opens to the world.',events:[
+ {cat:'Conflict',date:'Jan 17',title:'The Gulf War',desc:'A US-led coalition launches Operation Desert Storm to free Kuwait.',wiki:'Gulf War'},
+ {cat:'Technology',date:'Aug 6',title:'The Web Goes Public',desc:'The first website goes live, opening the World Wide Web to everyone.',wiki:'World Wide Web'},
+ {cat:'Technology',date:'Sep 17',title:'Linux Released',desc:'A student named Linus Torvalds releases an open-source operating system.',wiki:'Linux'},
+ {cat:'Conflict',date:'Jun',title:'The Yugoslav Wars Begin',desc:'The breakup of Yugoslavia descends into a decade of brutal conflict.',wiki:'Yugoslav Wars'},
+ {cat:'Politics',date:'Dec 26',title:'The Soviet Union Dissolves',desc:'The USSR formally ceases to exist, ending the Cold War.',wiki:'Dissolution of the Soviet Union'}
+]},
+1992:{theme:'A united Europe takes shape as the Balkans fall apart.',events:[
+ {cat:'Politics',date:'Feb 7',title:'The Maastricht Treaty',desc:'European nations sign the treaty that creates the European Union.',wiki:'Maastricht Treaty'},
+ {cat:'Conflict',date:'Apr 6',title:'The Bosnian War',desc:'Ethnic war erupts in Bosnia, including the long siege of Sarajevo.',wiki:'Bosnian War'},
+ {cat:'Disaster',date:'Apr 29',title:'The LA Riots',desc:'Unrest erupts in Los Angeles after the acquittal of officers who beat Rodney King.',wiki:'1992 Los Angeles riots'},
+ {cat:'Climate',date:'Jun 3',title:'The Rio Earth Summit',desc:'World leaders meet to confront climate change and biodiversity loss.',wiki:'Earth Summit'},
+ {cat:'Technology',date:'Dec 3',title:'The First Text Message',desc:'An engineer sends the first SMS: “Merry Christmas.”',wiki:'SMS'}
+]},
+1993:{theme:'The web browser arrives and old enemies shake hands in Oslo.',events:[
+ {cat:'Conflict',date:'Feb 26',title:'First WTC Bombing',desc:'A truck bomb explodes beneath the World Trade Center in New York.',wiki:'1993 World Trade Center bombing'},
+ {cat:'Disaster',date:'Apr 19',title:'The Waco Siege',desc:'A 51-day standoff in Texas ends in a deadly fire.',wiki:'Waco siege'},
+ {cat:'Technology',date:'Apr 30',title:'The Web Set Free',desc:'CERN releases the World Wide Web into the public domain; the Mosaic browser spreads it.',wiki:'Mosaic (web browser)'},
+ {cat:'Politics',date:'Sep 13',title:'The Oslo Accords',desc:'Israeli and Palestinian leaders shake hands on a peace framework.',wiki:'Oslo Accords'},
+ {cat:'Culture',date:'Jun 11',title:'Jurassic Park',desc:'Spielberg’s film stuns audiences with lifelike digital dinosaurs.',wiki:'Jurassic Park (film)'}
+]},
+1994:{theme:'Apartheid ends in triumph as Rwanda descends into genocide.',events:[
+ {cat:'Disaster',date:'Apr 7',title:'The Rwandan Genocide',desc:'In about 100 days, extremists murder some 800,000 people.',wiki:'Rwandan genocide'},
+ {cat:'Politics',date:'Apr 27',title:'Apartheid Ends',desc:'South Africa holds its first all-race election; Mandela becomes president.',wiki:'1994 South African general election'},
+ {cat:'Technology',date:'Jul 5',title:'Amazon Is Founded',desc:'Jeff Bezos starts an online bookstore that becomes a retail giant.',wiki:'Amazon (company)'},
+ {cat:'Sports',date:'May 1',title:'Senna’s Final Race',desc:'Racing legend Ayrton Senna dies in a crash at the San Marino Grand Prix.',wiki:'Ayrton Senna'},
+ {cat:'Technology',date:'May 6',title:'The Channel Tunnel Opens',desc:'A rail tunnel links Britain and France beneath the sea.',wiki:'Channel Tunnel'}
+]},
+1995:{theme:'Terror strikes Oklahoma City as Windows 95 puts the world online.',events:[
+ {cat:'Disaster',date:'Jan 17',title:'The Kobe Earthquake',desc:'A powerful quake devastates the Japanese city of Kobe.',wiki:'Great Hanshin earthquake'},
+ {cat:'Conflict',date:'Mar 20',title:'The Tokyo Sarin Attack',desc:'A cult releases nerve gas on the subway, killing commuters.',wiki:'Tokyo subway sarin attack'},
+ {cat:'Conflict',date:'Apr 19',title:'The Oklahoma City Bombing',desc:'A truck bomb destroys a federal building, killing 168 people.',wiki:'Oklahoma City bombing'},
+ {cat:'Technology',date:'Aug 24',title:'Windows 95',desc:'Microsoft’s operating system brings computing to the mainstream.',wiki:'Windows 95'},
+ {cat:'Conflict',date:'Jul 11',title:'The Srebrenica Massacre',desc:'Bosnian Serb forces kill thousands of Muslim men and boys.',wiki:'Srebrenica massacre'}
+]},
+1996:{theme:'Scientists clone Dolly and the Taliban seize Kabul.',events:[
+ {cat:'Health',date:'Jul 5',title:'Dolly the Sheep',desc:'Scientists clone the first mammal from an adult cell.',wiki:'Dolly (sheep)'},
+ {cat:'Disaster',date:'Jul 27',title:'The Atlanta Olympics Bombing',desc:'A bomb explodes at the Summer Games, killing two.',wiki:'Centennial Olympic Park bombing'},
+ {cat:'Politics',date:'Sep 27',title:'The Taliban Take Kabul',desc:'The militant group seizes Afghanistan’s capital and imposes harsh rule.',wiki:'Taliban'},
+ {cat:'Culture',date:'Feb 27',title:'Pokémon Released',desc:'Nintendo’s games launch a global phenomenon.',wiki:'Pokémon'}
+]},
+1997:{theme:'A princess mourned, a machine beats a chessmaster, Hong Kong returns.',events:[
+ {cat:'Technology',date:'May 11',title:'Deep Blue Beats Kasparov',desc:'An IBM computer defeats the world chess champion.',wiki:'Deep Blue versus Garry Kasparov'},
+ {cat:'Finance',date:'Jul 2',title:'The Asian Financial Crisis',desc:'Currency collapses ripple across Asia and the global economy.',wiki:'1997 Asian financial crisis'},
+ {cat:'Politics',date:'Jul 1',title:'Hong Kong Returns to China',desc:'Britain hands its colony back after 156 years.',wiki:'Handover of Hong Kong'},
+ {cat:'Culture',date:'Aug 31',title:'Princess Diana Dies',desc:'The beloved princess is killed in a Paris car crash.',wiki:'Death of Diana, Princess of Wales'},
+ {cat:'Culture',date:'Jun 26',title:'Harry Potter Arrives',desc:'J.K. Rowling publishes the first novel in a record-breaking series.',wiki:'Harry Potter and the Philosopher\'s Stone'}
+]},
+1998:{theme:'Google is founded and peace comes to Northern Ireland.',events:[
+ {cat:'Politics',date:'Apr 10',title:'The Good Friday Agreement',desc:'A peace deal largely ends decades of conflict in Northern Ireland.',wiki:'Good Friday Agreement'},
+ {cat:'Conflict',date:'May 11',title:'India and Pakistan Go Nuclear',desc:'Rival nations conduct nuclear tests, raising regional tensions.',wiki:'Pokhran-II'},
+ {cat:'Conflict',date:'Aug 7',title:'US Embassy Bombings',desc:'Al-Qaeda attacks US embassies in Kenya and Tanzania.',wiki:'1998 United States embassy bombings'},
+ {cat:'Technology',date:'Sep 4',title:'Google Is Founded',desc:'Two Stanford students launch a search engine that reshapes the internet.',wiki:'Google'},
+ {cat:'Politics',date:'Dec 19',title:'Clinton Impeached',desc:'The US House impeaches the president over the Lewinsky scandal.',wiki:'Clinton–Lewinsky scandal'}
+]},
+1999:{theme:'The world braces for Y2K as Napster rewrites music.',events:[
+ {cat:'Finance',date:'Jan 1',title:'The Euro Is Born',desc:'A single European currency launches for electronic transactions.',wiki:'Eurozone'},
+ {cat:'Conflict',date:'Mar 24',title:'The Kosovo War',desc:'NATO bombs Yugoslavia to halt ethnic cleansing in Kosovo.',wiki:'Kosovo War'},
+ {cat:'Disaster',date:'Apr 20',title:'The Columbine Shooting',desc:'A massacre at a Colorado high school shocks America.',wiki:'Columbine High School massacre'},
+ {cat:'Technology',date:'Jun 1',title:'Napster',desc:'A file-sharing service upends the music industry.',wiki:'Napster'},
+ {cat:'Culture',date:'Mar 31',title:'The Matrix',desc:'A groundbreaking sci-fi film redefines visual effects.',wiki:'The Matrix'}
+]},
+2000:{theme:'The dot-com bubble bursts and the genome is mapped.',events:[
+ {cat:'Technology',date:'Mar 10',title:'The Dot-Com Bubble Bursts',desc:'Internet stocks collapse, wiping out trillions in market value.',wiki:'Dot-com bubble'},
+ {cat:'Health',date:'Jun 26',title:'The Human Genome',desc:'Scientists announce a working draft of the human genetic code.',wiki:'Human Genome Project'},
+ {cat:'Space',date:'Nov 2',title:'Living on the Space Station',desc:'The first crew takes up residence aboard the International Space Station.',wiki:'International Space Station'},
+ {cat:'Politics',date:'Dec 12',title:'Bush v. Gore',desc:'A disputed US election is decided by the Supreme Court.',wiki:'2000 United States presidential election'},
+ {cat:'Conflict',date:'Oct 12',title:'The USS Cole Bombing',desc:'Al-Qaeda attacks a US warship in Yemen.',wiki:'USS Cole bombing'}
+]},
+2001:{theme:'September 11 reshapes the world and the War on Terror begins.',events:[
+ {cat:'Technology',date:'Jan 15',title:'Wikipedia Launches',desc:'A free, collaborative encyclopedia begins, changing how the world finds information.',wiki:'Wikipedia'},
+ {cat:'Conflict',date:'Sep 11',title:'The September 11 Attacks',desc:'Hijacked planes destroy the Twin Towers and strike the Pentagon, killing nearly 3,000.',wiki:'September 11 attacks'},
+ {cat:'Conflict',date:'Oct 7',title:'The War in Afghanistan',desc:'A US-led coalition invades Afghanistan to topple the Taliban.',wiki:'War in Afghanistan (2001–2021)'},
+ {cat:'Technology',date:'Oct 23',title:'The iPod',desc:'Apple’s music player puts a thousand songs in your pocket.',wiki:'iPod'},
+ {cat:'Finance',date:'Dec 2',title:'The Enron Collapse',desc:'A massive accounting fraud brings down an energy giant.',wiki:'Enron scandal'}
+]},
+2002:{theme:'Europe adopts the euro as a new virus stirs in China.',events:[
+ {cat:'Finance',date:'Jan 1',title:'Euro Notes and Coins',desc:'Hundreds of millions of Europeans begin using a shared currency.',wiki:'Euro'},
+ {cat:'Politics',date:'Nov 25',title:'Homeland Security Created',desc:'The US reorganizes its government in response to terrorism.',wiki:'United States Department of Homeland Security'},
+ {cat:'Disaster',date:'Oct 12',title:'The Bali Bombings',desc:'Terrorist blasts at a nightclub district kill more than 200.',wiki:'2002 Bali bombings'},
+ {cat:'Health',date:'Nov 16',title:'SARS Emerges',desc:'A deadly new respiratory virus appears in southern China.',wiki:'Severe acute respiratory syndrome'}
+]},
+2003:{theme:'America invades Iraq as SARS spreads and Columbia is lost.',events:[
+ {cat:'Space',date:'Feb 1',title:'The Columbia Disaster',desc:'The space shuttle disintegrates on reentry, killing seven astronauts.',wiki:'Space Shuttle Columbia disaster'},
+ {cat:'Conflict',date:'Mar 20',title:'The Iraq War Begins',desc:'A US-led coalition invades Iraq to topple Saddam Hussein.',wiki:'2003 invasion of Iraq'},
+ {cat:'Health',date:'Mar',title:'The SARS Outbreak',desc:'A global health scare spreads the new coronavirus across continents.',wiki:'2002–2004 SARS outbreak'},
+ {cat:'Health',date:'Apr 14',title:'The Genome Completed',desc:'The Human Genome Project finishes mapping all human genes.',wiki:'Human Genome Project'},
+ {cat:'Disaster',date:'Aug',title:'The European Heat Wave',desc:'A record heat wave kills tens of thousands across the continent.',wiki:'2003 European heat wave'}
+]},
+2004:{theme:'A tsunami devastates Asia and Facebook is born in a dorm room.',events:[
+ {cat:'Space',date:'Jan 4',title:'Rovers Reach Mars',desc:'NASA’s Spirit and Opportunity begin exploring the red planet.',wiki:'Spirit (rover)'},
+ {cat:'Technology',date:'Feb 4',title:'Facebook Launches',desc:'A Harvard student creates a social network that reshapes the world.',wiki:'Facebook'},
+ {cat:'Conflict',date:'Mar 11',title:'The Madrid Bombings',desc:'Coordinated train bombings kill 193 people in Spain.',wiki:'2004 Madrid train bombings'},
+ {cat:'Conflict',date:'Sep 1',title:'The Beslan Siege',desc:'A school hostage crisis in Russia ends in hundreds of deaths.',wiki:'Beslan school siege'},
+ {cat:'Disaster',date:'Dec 26',title:'The Indian Ocean Tsunami',desc:'A massive quake and tsunami kill some 230,000 people across Asia.',wiki:'2004 Indian Ocean earthquake and tsunami'}
+]},
+2005:{theme:'Katrina drowns New Orleans as YouTube changes how we watch.',events:[
+ {cat:'Technology',date:'Feb 14',title:'YouTube Is Founded',desc:'A video-sharing site launches and transforms media forever.',wiki:'YouTube'},
+ {cat:'Politics',date:'Apr 19',title:'Pope Benedict XVI',desc:'A new pope is elected after the death of John Paul II.',wiki:'Pope Benedict XVI'},
+ {cat:'Conflict',date:'Jul 7',title:'The London Bombings',desc:'Suicide bombers attack the city’s transport network, killing 52.',wiki:'7 July 2005 London bombings'},
+ {cat:'Disaster',date:'Aug 29',title:'Hurricane Katrina',desc:'A catastrophic storm floods New Orleans and devastates the Gulf Coast.',wiki:'Hurricane Katrina'},
+ {cat:'Disaster',date:'Oct 8',title:'The Kashmir Earthquake',desc:'A powerful quake kills tens of thousands in Pakistan and India.',wiki:'2005 Kashmir earthquake'}
+]},
+2006:{theme:'Twitter arrives, Pluto is demoted, and Saddam is hanged.',events:[
+ {cat:'Technology',date:'Mar 21',title:'Twitter Launches',desc:'A new platform lets the world post in 140 characters.',wiki:'Twitter'},
+ {cat:'Conflict',date:'Jul 12',title:'The Lebanon War',desc:'A month-long war erupts between Israel and Hezbollah.',wiki:'2006 Lebanon War'},
+ {cat:'Space',date:'Aug 24',title:'Pluto Demoted',desc:'Astronomers reclassify Pluto as a dwarf planet.',wiki:'IAU definition of planet'},
+ {cat:'Conflict',date:'Oct 9',title:'North Korea’s First Nuke',desc:'Pyongyang conducts its first nuclear weapons test.',wiki:'2006 North Korean nuclear test'},
+ {cat:'Politics',date:'Dec 30',title:'Saddam Executed',desc:'The former Iraqi dictator is hanged after his trial.',wiki:'Execution of Saddam Hussein'}
+]},
+2007:{theme:'The iPhone is unveiled and the housing market starts to crack.',events:[
+ {cat:'Technology',date:'Jun 29',title:'The iPhone',desc:'Apple’s touchscreen phone redefines computing and communication.',wiki:'iPhone (1st generation)'},
+ {cat:'Finance',date:'Aug',title:'The Subprime Crisis',desc:'Cracks in the US housing market spread fear through global finance.',wiki:'Subprime mortgage crisis'},
+ {cat:'Technology',date:'Nov 19',title:'The Kindle',desc:'Amazon’s e-reader pushes books into the digital age.',wiki:'Amazon Kindle'},
+ {cat:'Politics',date:'Dec 27',title:'Bhutto Assassinated',desc:'Pakistani leader Benazir Bhutto is killed at a campaign rally.',wiki:'Assassination of Benazir Bhutto'},
+ {cat:'Climate',date:'Oct 12',title:'A Nobel for Climate',desc:'Al Gore and the IPCC win the Peace Prize for climate awareness.',wiki:'An Inconvenient Truth'}
+]},
+2008:{theme:'Lehman falls, the world economy reels, and Obama makes history.',events:[
+ {cat:'Sports',date:'Aug 8',title:'The Beijing Olympics',desc:'China stages a spectacular Summer Games as it rises on the world stage.',wiki:'2008 Summer Olympics'},
+ {cat:'Conflict',date:'Aug 7',title:'The Russia–Georgia War',desc:'A short war over breakaway regions reshapes the Caucasus.',wiki:'Russo-Georgian War'},
+ {cat:'Finance',date:'Sep 15',title:'Lehman Brothers Collapses',desc:'The investment bank’s failure triggers a global financial crisis.',wiki:'Bankruptcy of Lehman Brothers'},
+ {cat:'Technology',date:'Oct 31',title:'Bitcoin Proposed',desc:'A mysterious paper introduces a decentralized digital currency.',wiki:'Bitcoin'},
+ {cat:'Politics',date:'Nov 4',title:'Obama Elected',desc:'Barack Obama becomes the first Black US president.',wiki:'2008 United States presidential election'},
+ {cat:'Conflict',date:'Nov 26',title:'The Mumbai Attacks',desc:'Coordinated terror attacks kill 166 across India’s largest city.',wiki:'2008 Mumbai attacks'}
+]},
+2009:{theme:'A pandemic spreads, the King of Pop dies, and Bitcoin begins.',events:[
+ {cat:'Politics',date:'Jan 20',title:'Obama Inaugurated',desc:'A record crowd watches the first Black president take office.',wiki:'First inauguration of Barack Obama'},
+ {cat:'Finance',date:'Jan 3',title:'The Bitcoin Network',desc:'The first block of the cryptocurrency is mined.',wiki:'Bitcoin'},
+ {cat:'Health',date:'Apr',title:'The Swine Flu Pandemic',desc:'A new H1N1 flu strain spreads around the globe.',wiki:'2009 swine flu pandemic'},
+ {cat:'Culture',date:'Jun 25',title:'Michael Jackson Dies',desc:'The King of Pop’s sudden death stuns the world.',wiki:'Death of Michael Jackson'},
+ {cat:'Politics',date:'Jun 12',title:'Iran’s Green Movement',desc:'Mass protests erupt over a disputed presidential election.',wiki:'2009–2010 Iranian election protests'}
+]},
+2010:{theme:'Oil fouls the Gulf as the Arab Spring’s first sparks fly.',events:[
+ {cat:'Disaster',date:'Jan 12',title:'The Haiti Earthquake',desc:'A devastating quake kills more than 200,000 people.',wiki:'2010 Haiti earthquake'},
+ {cat:'Disaster',date:'Apr 20',title:'The Deepwater Horizon Spill',desc:'An offshore rig explosion causes the worst oil spill in US history.',wiki:'Deepwater Horizon oil spill'},
+ {cat:'Technology',date:'Oct 6',title:'Instagram Launches',desc:'A photo-sharing app reshapes how the world shares its life.',wiki:'Instagram'},
+ {cat:'Conflict',date:'Oct 13',title:'The Chilean Miners Rescued',desc:'The world watches as 33 trapped miners are pulled to safety.',wiki:'2010 Copiapó mining accident'},
+ {cat:'Politics',date:'Dec 17',title:'The Arab Spring Begins',desc:'A Tunisian protest ignites uprisings across the Arab world.',wiki:'Arab Spring'}
+]},
+2011:{theme:'Dictators fall in the Arab Spring as Japan reels from Fukushima.',events:[
+ {cat:'Politics',date:'Feb 11',title:'Mubarak Falls',desc:'Egypt’s long-ruling president resigns amid mass protests.',wiki:'Arab Spring'},
+ {cat:'Disaster',date:'Mar 11',title:'Fukushima',desc:'A quake and tsunami trigger a nuclear disaster in Japan.',wiki:'Fukushima nuclear accident'},
+ {cat:'Conflict',date:'May 2',title:'Bin Laden Killed',desc:'US special forces kill the al-Qaeda leader in Pakistan.',wiki:'Killing of Osama bin Laden'},
+ {cat:'Conflict',date:'Mar 15',title:'The Syrian War Begins',desc:'Protests turn into a devastating civil war.',wiki:'Syrian civil war'},
+ {cat:'Culture',date:'Oct 5',title:'Steve Jobs Dies',desc:'Apple’s visionary co-founder dies at 56.',wiki:'Steve Jobs'}
+]},
+2012:{theme:'The God particle is found and Curiosity rolls across Mars.',events:[
+ {cat:'Space',date:'Aug 6',title:'Curiosity Lands on Mars',desc:'NASA’s car-sized rover touches down to explore the red planet.',wiki:'Curiosity (rover)'},
+ {cat:'Technology',date:'Jul 4',title:'The Higgs Boson',desc:'Physicists confirm the long-sought “God particle.”',wiki:'Higgs boson'},
+ {cat:'Culture',date:'Jul 15',title:'Gangnam Style',desc:'A K-pop hit becomes the first video to reach a billion YouTube views.',wiki:'Gangnam Style'},
+ {cat:'Space',date:'Oct 14',title:'The Space Jump',desc:'Felix Baumgartner skydives from the edge of space.',wiki:'Felix Baumgartner'},
+ {cat:'Disaster',date:'Dec 14',title:'Sandy Hook',desc:'A school shooting in Connecticut kills 26, mostly children.',wiki:'Sandy Hook Elementary School shooting'}
+]},
+2013:{theme:'Snowden exposes mass surveillance and a new pope takes the name Francis.',events:[
+ {cat:'Politics',date:'Mar 13',title:'Pope Francis Elected',desc:'The first pope from the Americas takes the throne of St. Peter.',wiki:'Pope Francis'},
+ {cat:'Conflict',date:'Apr 15',title:'The Boston Marathon Bombing',desc:'Two bombs at the finish line kill three and injure hundreds.',wiki:'Boston Marathon bombing'},
+ {cat:'Politics',date:'Jun 5',title:'The Snowden Leaks',desc:'A contractor exposes the scope of global mass surveillance.',wiki:'Edward Snowden'},
+ {cat:'Conflict',date:'Aug 21',title:'Syria’s Chemical Attack',desc:'A nerve-gas attack near Damascus kills hundreds of civilians.',wiki:'Ghouta chemical attack'},
+ {cat:'Politics',date:'Dec 5',title:'Mandela Dies',desc:'The world mourns the anti-apartheid icon and former president.',wiki:'Death of Nelson Mandela'}
+]},
+2014:{theme:'Russia seizes Crimea and ISIS storms across the Middle East.',events:[
+ {cat:'Conflict',date:'Mar 18',title:'Russia Annexes Crimea',desc:'Russia seizes the Ukrainian peninsula, drawing global condemnation.',wiki:'Annexation of Crimea by the Russian Federation'},
+ {cat:'Disaster',date:'Mar 8',title:'Flight MH370 Vanishes',desc:'A Malaysian airliner disappears in one of aviation’s great mysteries.',wiki:'Malaysia Airlines Flight 370'},
+ {cat:'Conflict',date:'Jun 29',title:'ISIS Declares a Caliphate',desc:'The militant group seizes territory across Iraq and Syria.',wiki:'Islamic State'},
+ {cat:'Health',date:'Aug 8',title:'The Ebola Epidemic',desc:'A West African outbreak becomes a global health emergency.',wiki:'Western African Ebola epidemic'},
+ {cat:'Culture',date:'Aug',title:'The Ice Bucket Challenge',desc:'A viral campaign raises millions for ALS research.',wiki:'Ice Bucket Challenge'}
+]},
+2015:{theme:'The world unites on climate as terror strikes Paris.',events:[
+ {cat:'Politics',date:'Jun 26',title:'Marriage Equality',desc:'The US Supreme Court legalizes same-sex marriage nationwide.',wiki:'Obergefell v. Hodges'},
+ {cat:'Politics',date:'Jul 14',title:'The Iran Nuclear Deal',desc:'World powers and Iran reach a landmark agreement on its nuclear program.',wiki:'Joint Comprehensive Plan of Action'},
+ {cat:'Space',date:'Jul 14',title:'New Horizons at Pluto',desc:'A NASA probe gives humanity its first close-up of the dwarf planet.',wiki:'New Horizons'},
+ {cat:'Conflict',date:'Nov 13',title:'The Paris Attacks',desc:'Coordinated terror attacks kill 130 people across the French capital.',wiki:'November 2015 Paris attacks'},
+ {cat:'Climate',date:'Dec 12',title:'The Paris Climate Agreement',desc:'Nearly 200 nations agree to limit global warming.',wiki:'Paris Agreement'}
+]},
+2016:{theme:'Britain votes for Brexit and America elects Trump.',events:[
+ {cat:'Space',date:'Feb 11',title:'Gravitational Waves Detected',desc:'Scientists confirm ripples in spacetime predicted by Einstein.',wiki:'First observation of gravitational waves'},
+ {cat:'Technology',date:'Mar 9',title:'AlphaGo Beats a Master',desc:'An AI defeats a champion at the ancient game of Go.',wiki:'AlphaGo versus Lee Sedol'},
+ {cat:'Politics',date:'Jun 23',title:'Brexit',desc:'Britain votes to leave the European Union.',wiki:'2016 United Kingdom European Union membership referendum'},
+ {cat:'Culture',date:'Jul 6',title:'Pokémon Go',desc:'An augmented-reality game becomes a worldwide sensation.',wiki:'Pokémon Go'},
+ {cat:'Politics',date:'Nov 8',title:'Trump Elected',desc:'Donald Trump wins a stunning upset in the US presidential race.',wiki:'2016 United States presidential election'}
+]},
+2017:{theme:'MeToo topples the powerful as Trump takes office.',events:[
+ {cat:'Politics',date:'Jan 20',title:'Trump Inaugurated',desc:'Donald Trump takes office as the 45th US president.',wiki:'First inauguration of Donald Trump'},
+ {cat:'Disaster',date:'Sep 20',title:'Hurricane Maria',desc:'A catastrophic storm devastates Puerto Rico.',wiki:'Hurricane Maria'},
+ {cat:'Conflict',date:'Oct 1',title:'The Las Vegas Shooting',desc:'A gunman kills 60 at a concert in the deadliest US mass shooting.',wiki:'2017 Las Vegas shooting'},
+ {cat:'Culture',date:'Oct 15',title:'The MeToo Movement',desc:'A wave of accusations exposes sexual misconduct by powerful men.',wiki:'MeToo movement'},
+ {cat:'Finance',date:'Dec',title:'The Bitcoin Boom',desc:'The cryptocurrency surges toward $20,000, gripping investors.',wiki:'Bitcoin'}
+]},
+2018:{theme:'Trump meets Kim as a soccer-mad summer grips the world.',events:[
+ {cat:'Conflict',date:'Feb 14',title:'The Parkland Shooting',desc:'A school massacre in Florida sparks a youth-led gun-control movement.',wiki:'Stoneman Douglas High School shooting'},
+ {cat:'Technology',date:'Mar 17',title:'The Cambridge Analytica Scandal',desc:'Revelations about data misuse rock Facebook and politics.',wiki:'Facebook–Cambridge Analytica data scandal'},
+ {cat:'Space',date:'Feb 6',title:'Falcon Heavy Launches',desc:'SpaceX flies its giant rocket and lands two boosters together.',wiki:'Falcon Heavy test flight'},
+ {cat:'Politics',date:'Jun 12',title:'The Trump–Kim Summit',desc:'A US president meets North Korea’s leader for the first time.',wiki:'2018 North Korea–United States Singapore Summit'},
+ {cat:'Sports',date:'Jul 15',title:'France Wins the World Cup',desc:'Les Bleus lift football’s greatest trophy in Russia.',wiki:'2018 FIFA World Cup'}
+]},
+2019:{theme:'We photograph a black hole as an unknown virus stirs in Wuhan.',events:[
+ {cat:'Space',date:'Apr 10',title:'First Image of a Black Hole',desc:'Astronomers capture the first picture of a black hole’s shadow.',wiki:'Messier 87'},
+ {cat:'Disaster',date:'Apr 15',title:'Notre-Dame Burns',desc:'A fire ravages the historic Paris cathedral.',wiki:'Notre-Dame fire'},
+ {cat:'Climate',date:'Sep 20',title:'The Global Climate Strikes',desc:'Millions march for climate action, inspired by Greta Thunberg.',wiki:'Greta Thunberg'},
+ {cat:'Politics',date:'Jun 9',title:'The Hong Kong Protests',desc:'Massive demonstrations challenge Beijing’s grip on the city.',wiki:'2019–2020 Hong Kong protests'},
+ {cat:'Health',date:'Dec',title:'COVID-19 Emerges',desc:'A novel coronavirus appears in Wuhan, China.',wiki:'COVID-19 pandemic'}
+]},
+2020:{theme:'A pandemic upends the world and a reckoning over race erupts.',events:[
+ {cat:'Politics',date:'Jan 31',title:'Brexit Takes Effect',desc:'Britain formally leaves the European Union.',wiki:'Brexit'},
+ {cat:'Health',date:'Mar 11',title:'COVID-19 Pandemic',desc:'The WHO declares a pandemic as the virus spreads worldwide and locks down nations.',wiki:'COVID-19 pandemic'},
+ {cat:'Space',date:'May 30',title:'SpaceX Launches Astronauts',desc:'A private company carries humans to orbit for the first time.',wiki:'Crew Dragon Demo-2'},
+ {cat:'Politics',date:'May 25',title:'George Floyd and the Reckoning',desc:'Floyd’s killing sparks global protests against racial injustice.',wiki:'Murder of George Floyd'},
+ {cat:'Disaster',date:'Aug 4',title:'The Beirut Explosion',desc:'A massive blast at the port devastates Lebanon’s capital.',wiki:'2020 Beirut explosion'},
+ {cat:'Politics',date:'Nov 3',title:'Biden Defeats Trump',desc:'Joe Biden wins the US presidency in a turbulent election.',wiki:'2020 United States presidential election'},
+ {cat:'Health',date:'Dec',title:'COVID Vaccines Arrive',desc:'The first vaccines roll out at record speed.',wiki:'COVID-19 vaccine'}
+]},
+2021:{theme:'The Capitol is stormed and America’s longest war ends in Kabul.',events:[
+ {cat:'Politics',date:'Jan 6',title:'The Capitol Attack',desc:'A mob storms the US Capitol to overturn the election result.',wiki:'January 6 United States Capitol attack'},
+ {cat:'Disaster',date:'Mar 23',title:'The Suez Canal Blocked',desc:'A giant container ship wedges across the canal, snarling global trade.',wiki:'2021 Suez Canal obstruction'},
+ {cat:'Technology',date:'Oct 28',title:'Facebook Becomes Meta',desc:'The company rebrands and bets on the “metaverse.”',wiki:'Meta Platforms'},
+ {cat:'Conflict',date:'Aug 15',title:'The Fall of Kabul',desc:'The Taliban retake Afghanistan as US forces withdraw.',wiki:'Fall of Kabul (2021)'},
+ {cat:'Space',date:'Dec 25',title:'The James Webb Telescope',desc:'A revolutionary space observatory launches to peer into the early universe.',wiki:'James Webb Space Telescope'}
+]},
+2022:{theme:'War returns to Europe and ChatGPT ignites the AI age.',events:[
+ {cat:'Conflict',date:'Feb 24',title:'Russia Invades Ukraine',desc:'The largest war in Europe since 1945 begins.',wiki:'Russian invasion of Ukraine'},
+ {cat:'Politics',date:'Sep 8',title:'Queen Elizabeth II Dies',desc:'Britain’s longest-reigning monarch dies after 70 years on the throne.',wiki:'Death and state funeral of Elizabeth II'},
+ {cat:'Space',date:'Sep 26',title:'NASA Strikes an Asteroid',desc:'The DART mission deliberately crashes into an asteroid to test planetary defense.',wiki:'Double Asteroid Redirection Test'},
+ {cat:'Finance',date:'Nov 11',title:'The FTX Collapse',desc:'A major crypto exchange implodes in fraud, wiping out billions.',wiki:'Bankruptcy of FTX'},
+ {cat:'Technology',date:'Nov 30',title:'ChatGPT Launches',desc:'OpenAI’s chatbot puts powerful AI in everyone’s hands.',wiki:'ChatGPT'},
+ {cat:'Sports',date:'Dec 18',title:'Argentina Wins the World Cup',desc:'Lionel Messi caps his career with football’s greatest prize.',wiki:'2022 FIFA World Cup final'}
+]},
+2023:{theme:'Generative AI explodes and war erupts between Israel and Hamas.',events:[
+ {cat:'Finance',date:'Mar 10',title:'Silicon Valley Bank Fails',desc:'A bank run topples a major tech lender, rattling markets.',wiki:'Collapse of Silicon Valley Bank'},
+ {cat:'Technology',date:'Mar 14',title:'GPT-4 Released',desc:'A leap in AI capability accelerates the generative AI boom.',wiki:'GPT-4'},
+ {cat:'Disaster',date:'Feb 6',title:'The Turkey–Syria Earthquakes',desc:'Powerful quakes kill more than 50,000 people.',wiki:'2023 Turkey–Syria earthquakes'},
+ {cat:'Space',date:'Aug 23',title:'India Lands on the Moon',desc:'Chandrayaan-3 touches down near the lunar south pole.',wiki:'Chandrayaan-3'},
+ {cat:'Conflict',date:'Oct 7',title:'War in Israel and Gaza',desc:'A Hamas attack on Israel ignites a devastating war.',wiki:'2023 Hamas-led attack on Israel'},
+ {cat:'Disaster',date:'Jun 18',title:'The Titan Implosion',desc:'A submersible bound for the Titanic wreck implodes, killing five.',wiki:'Titan submersible implosion'}
+]},
+2024:{theme:'Trump returns, Assad falls, and AI reshapes the economy.',events:[
+ {cat:'Politics',date:'Jun 1',title:'A Year of Elections',desc:'Billions vote worldwide in the biggest election year in history.',wiki:'2024 Indian general election'},
+ {cat:'Conflict',date:'Jul 13',title:'Trump Assassination Attempt',desc:'A gunman wounds the former president at a Pennsylvania rally.',wiki:'Attempted assassination of Donald Trump in Pennsylvania'},
+ {cat:'Sports',date:'Jul 26',title:'The Paris Olympics',desc:'The Summer Games return to Paris in dazzling fashion.',wiki:'2024 Summer Olympics'},
+ {cat:'Space',date:'Oct 13',title:'Catching a Rocket',desc:'SpaceX catches a returning Starship booster with giant mechanical arms.',wiki:'SpaceX Starship'},
+ {cat:'Politics',date:'Nov 5',title:'Trump Wins Again',desc:'Donald Trump is elected to a second, nonconsecutive term.',wiki:'2024 United States presidential election'},
+ {cat:'Conflict',date:'Dec 8',title:'The Fall of Assad',desc:'Syria’s long-ruling regime collapses as rebels take Damascus.',wiki:'Fall of the Assad regime'}
+]},
+2025:{theme:'Power changes hands, AI rattles markets, and the world keeps its balance on a knife-edge.',events:[
+ {cat:'Conflict',date:'Jan 19',title:'Gaza Ceasefire Takes Hold',desc:'A long-negotiated truce pauses 15 months of war and begins the staged release of hostages.',wiki:'2025 Gaza war ceasefire'},
+ {cat:'Politics',date:'Jan 20',title:'Trump Returns to Power',desc:'Donald Trump is sworn in as the 47th US president, completing a historic comeback.',wiki:'Second inauguration of Donald Trump'},
+ {cat:'Technology',date:'Jan 27',title:'DeepSeek Upends AI',desc:'A low-cost Chinese model stuns Silicon Valley and triggers a record one-day rout in tech stocks.',wiki:'DeepSeek'},
+ {cat:'Climate',date:'January',title:'Los Angeles Ablaze',desc:'Wind-driven wildfires raze whole neighborhoods in one of the costliest disasters in US history.',wiki:'January 2025 Southern California wildfires'},
+ {cat:'Sports',date:'Feb 9',title:'Eagles Soar at Super Bowl LIX',desc:'Philadelphia routs the Kansas City Chiefs 40-22, denying their bid for a historic three-peat.',wiki:'Super Bowl LIX'},
+ {cat:'Space',date:'Mar 18',title:'Stranded Astronauts Come Home',desc:'Butch Wilmore and Suni Williams return after nine months aloft, ending a saga that gripped the world.',wiki:'Boeing Crewed Flight Test'},
+ {cat:'Conflict',date:'May 7',title:'India–Pakistan Clash',desc:'Cross-border strikes push the nuclear neighbors to the brink before a tense ceasefire holds.',wiki:'2025 India–Pakistan conflict'},
+ {cat:'Politics',date:'May 8',title:'First American Pope',desc:'Cardinal Robert Prevost becomes Pope Leo XIV, the first pope born in the United States.',wiki:'Pope Leo XIV'},
+ {cat:'Finance',date:'April',title:'Tariff Shock Jolts Markets',desc:'Sweeping new US tariffs whipsaw global trade and send equities on a wild ride.',wiki:'Tariffs in the second Trump administration'},
+ {cat:'Health',date:'Ongoing',title:'Measles Returns',desc:'Falling vaccination rates fuel the worst US measles outbreak in decades, with cases worldwide.',wiki:'2025 United States measles outbreak'}
+]},
+2026:{theme:'A turbulent year: strikes from Venezuela to Iran, a Winter Olympics, and the first trillionaire.',events:[
+ {cat:'Politics',date:'Jan 1',title:'Mamdani Becomes NYC Mayor',desc:'Zohran Mamdani is sworn in as mayor of New York City.',wiki:'Zohran Mamdani'},
+ {cat:'Conflict',date:'Jan 3',title:'US Strikes Venezuela',desc:'American forces strike northern Venezuela and capture President Nicolás Maduro.',wiki:'Nicolás Maduro'},
+ {cat:'Health',date:'Jan 23',title:'US Leaves the WHO',desc:'The United States completes its withdrawal from the World Health Organization.',wiki:'World Health Organization'},
+ {cat:'Sports',date:'Feb 6',title:'The Milan-Cortina Winter Olympics',desc:'Italy hosts the Winter Games across Milan and Cortina d’Ampezzo.',wiki:'2026 Winter Olympics'},
+ {cat:'Finance',date:'Feb 20',title:'Court Strikes Down Tariffs',desc:'The US Supreme Court rules against the administration’s sweeping tariffs.',wiki:'Supreme Court of the United States'},
+ {cat:'Conflict',date:'Feb 28',title:'Strikes on Iran',desc:'The US and Israel launch attacks in Iran, killing senior officials including Ali Khamenei.',wiki:'2026 Israeli–United States strikes on Iran'},
+ {cat:'Space',date:'Apr',title:'Artemis II Circles the Moon',desc:'The first crewed lunar flyby since 1972 carries astronauts around the Moon.',wiki:'Artemis II'},
+ {cat:'Disaster',date:'Jun 8',title:'A Powerful Philippine Quake',desc:'A magnitude 7.8 earthquake strikes the Philippines, its strongest since 1976.',wiki:'Philippines'},
+ {cat:'Finance',date:'Jun 12',title:'The First Trillionaire',desc:'SpaceX’s record IPO makes Elon Musk the world’s first trillionaire.',wiki:'SpaceX'},
+ {cat:'Sports',date:'Jun 11',title:'The World Cup Comes to North America',desc:'The FIFA World Cup kicks off across the US, Canada, and Mexico.',wiki:'2026 FIFA World Cup'}
+]}
+};
+</script>
+
+<script>
+/* ============================================================
+   APP LOGIC (vanilla JS port of the prototype)
+   ============================================================ */
+(function(){
+  "use strict";
+
+  const CATCOLORS = {
+    Politics:'oklch(0.62 0.16 28)', Conflict:'oklch(0.54 0.15 18)',
+    Technology:'oklch(0.60 0.10 215)', Finance:'oklch(0.60 0.11 165)',
+    Sports:'oklch(0.68 0.13 62)', Climate:'oklch(0.62 0.13 142)',
+    Space:'oklch(0.55 0.12 285)', Health:'oklch(0.62 0.13 355)',
+    Culture:'oklch(0.58 0.14 330)', Disaster:'oklch(0.50 0.10 70)'
+  };
+  const CATICON = {
+    Politics:'🏛️', Conflict:'⚔️', Technology:'💻',
+    Finance:'📈', Sports:'🏆', Climate:'🌍',
+    Space:'🚀', Health:'⚕️', Culture:'🎭', Disaster:'🌪️'
+  };
+  const CATORDER = ['Politics','Conflict','Technology','Finance','Sports','Climate','Space','Health','Culture','Disaster'];
+
+  // Years descending (newest at top of reel)
+  const YMAX = 2026, YMIN = 1945;
+  const years = [];
+  for (let y = YMAX; y >= YMIN; y--) years.push(y);
+  const N = years.length;
+
+  const itemH = 92, IMIN = -34, COUNT = 74, Vc = 138;
+  const RECENTER = 22;
+
+  let pos = 0;            // 0 == years[0] == 2026
+  let base = 0;           // center of rendered strip
+  let vel = 0, mode = null, target = null, raf = null;
+  let dragging = false, startY = 0, startPos = 0, lastY = 0, dragVel = 0;
+
+  let settledYear = 2025;
+  let filter = 'All';
+
+  const reel = document.getElementById('reel');
+  const vp = document.getElementById('vp');
+  const leverArm = document.getElementById('leverArm');
+  const eventsInner = document.getElementById('eventsInner');
+
+  function mod(n){ return ((n % N) + N) % N; }
+
+  function buildItems(){
+    let html = '';
+    for (let n = 0; n < COUNT; n++){
+      const L = base + n + IMIN;
+      html += '<div class="row">' + years[mod(L)] + '</div>';
+    }
+    reel.innerHTML = html;
+  }
+
+  function applyTransform(){
+    const ty = Vc - (pos - base - IMIN) * itemH - itemH/2;
+    reel.style.transform = 'translateY(' + ty + 'px)';
+  }
+
+  function maybeRecenter(){
+    if (Math.abs(pos - base) > RECENTER){
+      base = Math.round(pos);
+      buildItems();
+      applyTransform();
+    }
+  }
+
+  function ensureLoop(){ if (!raf) raf = requestAnimationFrame(tick); }
+
+  function tick(){
+    if (mode === 'spin'){
+      vel *= 0.955; pos += vel;
+      if (Math.abs(vel) < 0.02){ mode = 'snap'; target = Math.round(pos); }
+    } else if (mode === 'snap'){
+      const t = target != null ? target : Math.round(pos);
+      vel += (t - pos) * 0.22; vel *= 0.62; pos += vel;
+      if (Math.abs(t - pos) < 0.004 && Math.abs(vel) < 0.004){
+        pos = t; finishSettle(); return;
+      }
+    }
+    maybeRecenter();
+    applyTransform();
+    raf = requestAnimationFrame(tick);
+  }
+
+  function finishSettle(){
+    const idx = mod(Math.round(pos));
+    pos = idx; base = idx; buildItems(); applyTransform();
+    raf = null; mode = null; target = null; vel = 0;
+    const year = years[idx];
+    if (settledYear !== year){ settledYear = year; filter = 'All'; renderEvents(); }
+  }
+
+  function spin(){
+    mode = 'spin'; target = null;
+    const dir = Math.random() < 0.5 ? 1 : -1;
+    vel = dir * (0.7 + Math.random() * 0.45);
+    pullLever(); ensureLoop();
+  }
+
+  function nudge(d){
+    mode = 'snap';
+    target = (target != null ? target : Math.round(pos)) + d;
+    ensureLoop();
+  }
+
+  function pullLever(){
+    if (!leverArm) return;
+    leverArm.style.transform = 'translateX(-50%) translateY(40px)';
+    setTimeout(function(){ leverArm.style.transform = 'translateX(-50%) translateY(0)'; }, 200);
+  }
+
+  /* ---------- input handlers ---------- */
+  vp.addEventListener('pointerdown', function(e){
+    dragging = true;
+    if (raf){ cancelAnimationFrame(raf); raf = null; }
+    mode = null; target = null;
+    startY = e.clientY; startPos = pos; lastY = e.clientY; dragVel = 0;
+    try { vp.setPointerCapture(e.pointerId); } catch(err){}
+    vp.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+  vp.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    const dy = e.clientY - startY;
+    pos = startPos - dy / itemH;
+    dragVel = e.clientY - lastY; lastY = e.clientY;
+    maybeRecenter();
+    applyTransform();
+  });
+  function onUp(){
+    if (!dragging) return;
+    dragging = false; vp.style.cursor = 'grab';
+    let flick = -(dragVel) / itemH * 1.35;
+    flick = Math.max(-1.1, Math.min(1.1, flick));
+    if (Math.abs(flick) > 0.12){ mode = 'spin'; vel = flick; }
+    else { mode = 'snap'; target = Math.round(pos); }
+    ensureLoop();
+  }
+  vp.addEventListener('pointerup', onUp);
+  vp.addEventListener('pointercancel', onUp);
+  vp.addEventListener('wheel', function(e){ e.preventDefault(); nudge(e.deltaY > 0 ? 1 : -1); }, { passive:false });
+
+  document.getElementById('lever').addEventListener('click', spin);
+  document.getElementById('spinBtn').addEventListener('click', spin);
+  document.getElementById('olderBtn').addEventListener('click', function(){ nudge(1); });
+  document.getElementById('newerBtn').addEventListener('click', function(){ nudge(-1); });
+
+  /* ---------- events rendering ---------- */
+  function getMeta(year){
+    const m = DATA[year];
+    if (m && m.events && m.events.length) return { theme:m.theme, events:m.events, hasContent:true };
+    return { theme:(m && m.theme) || 'A defining year, ready to spin into view.', events:[], hasContent:false };
+  }
+
+  const imgCache = {};
+  function loadImage(wiki, holder){
+    if (!wiki){ return; }
+    if (imgCache[wiki] === 'none') return;
+    if (imgCache[wiki]){ setImg(holder, imgCache[wiki]); return; }
+    const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(wiki);
+    fetch(url, { headers:{ 'Accept':'application/json' } })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){
+        const src = j && ((j.thumbnail && j.thumbnail.source) || (j.originalimage && j.originalimage.source));
+        if (src){ imgCache[wiki] = src; setImg(holder, src); }
+        else { imgCache[wiki] = 'none'; }
+      })
+      .catch(function(){ imgCache[wiki] = 'none'; });
+  }
+  function setImg(holder, src){
+    if (!holder || !holder.isConnected) return;
+    const img = new Image();
+    img.className = 'ev-img';
+    img.alt = '';
+    img.onload = function(){
+      if (!holder.isConnected) return;
+      const fb = holder.querySelector('.ev-fallback');
+      holder.appendChild(img);
+      if (fb) fb.style.opacity = '0';
+    };
+    img.src = src;
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function renderEvents(){
+    const meta = getMeta(settledYear);
+    const all = meta.events;
+
+    const counts = {};
+    all.forEach(function(e){ counts[e.cat] = (counts[e.cat]||0) + 1; });
+    const present = CATORDER.filter(function(c){ return counts[c]; });
+
+    const chips = [{ key:'All', name:'All', count:all.length }]
+      .concat(present.map(function(c){ return { key:c, name:c, count:counts[c] }; }));
+
+    const shown = (filter === 'All' ? all : all.filter(function(e){ return e.cat === filter; }));
+
+    const momentsLabel = meta.hasContent
+      ? (filter === 'All'
+          ? all.length + ' moments across ' + present.length + ' categor' + (present.length===1?'y':'ies')
+          : shown.length + ' in ' + filter)
+      : 'History coming soon';
+
+    let html = '';
+    html += '<div class="ev-header">';
+    html +=   '<div class="ev-year">' + settledYear + '</div>';
+    html +=   '<div style="padding-bottom:12px;max-width:560px">';
+    html +=     '<div class="ev-eyebrow">The Year in Review</div>';
+    html +=     '<div class="ev-theme">' + esc(meta.theme) + '</div>';
+    html +=     '<div class="ev-moments">' + momentsLabel + '</div>';
+    html +=   '</div>';
+    html += '</div>';
+
+    // filters
+    html += '<div class="filters">';
+    chips.forEach(function(c){
+      const active = filter === c.key;
+      const color = c.key === 'All' ? '#149e8e' : CATCOLORS[c.key];
+      const bg = active ? color : '#ffffff';
+      const fg = active ? '#ffffff' : '#274b46';
+      const badgeBg = active ? 'rgba(255,255,255,.28)' : 'rgba(20,158,142,.12)';
+      const badgeFg = active ? '#ffffff' : color;
+      html += '<button class="chip" data-key="' + c.key + '" style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;border-radius:30px;padding:8px 15px;font-family:Quicksand;font-weight:600;font-size:12.5px;letter-spacing:.04em;border:1.5px solid ' + color + ';background:' + bg + ';color:' + fg + '">';
+      html +=   '<span>' + c.name + '</span>';
+      html +=   '<span style="min-width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;border-radius:9px;font-size:11px;font-weight:700;padding:0 5px;background:' + badgeBg + ';color:' + badgeFg + '">' + c.count + '</span>';
+      html += '</button>';
+    });
+    html += '</div>';
+
+    // grid
+    if (!shown.length){
+      html += '<div class="empty">No events recorded here yet for this filter.</div>';
+    } else {
+      html += '<div class="grid">';
+      shown.forEach(function(ev, i){
+        const accent = CATCOLORS[ev.cat] || '#149e8e';
+        const icon = CATICON[ev.cat] || '📌';
+        html += '<div class="evcard">';
+        html +=   '<div class="ev-accent" style="background:' + accent + '"></div>';
+        html +=   '<div class="ev-imgholder" data-wiki="' + esc(ev.wiki||'') + '" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#1c3a35,#0c1d1a)">';
+        html +=     '<div class="ev-fallback" style="transition:opacity .4s">' + icon + '</div>';
+        html +=   '</div>';
+        html +=   '<div class="ev-scrim"></div>';
+        html +=   '<div class="ev-top">';
+        html +=     '<span class="ev-date" style="border-left:3px solid ' + accent + '">' + esc(ev.date) + '</span>';
+        html +=     '<span class="ev-cat" style="background:' + accent + '">' + ev.cat + '</span>';
+        html +=   '</div>';
+        html +=   '<div class="ev-bottom">';
+        html +=     '<div class="ev-title">' + esc(ev.title) + '</div>';
+        html +=     '<div class="ev-desc">' + esc(ev.desc) + '</div>';
+        html +=   '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    // force re-mount animation
+    eventsInner.style.animation = 'none';
+    eventsInner.innerHTML = html;
+    void eventsInner.offsetWidth;
+    eventsInner.style.animation = 'floatUp .5s ease both';
+
+    // wire chip clicks
+    eventsInner.querySelectorAll('.chip').forEach(function(btn){
+      btn.addEventListener('click', function(){ filter = btn.getAttribute('data-key'); renderEvents(); });
+    });
+    // load images
+    eventsInner.querySelectorAll('.ev-imgholder').forEach(function(h){
+      loadImage(h.getAttribute('data-wiki'), h);
+    });
+  }
+
+  /* ---------- init ---------- */
+  function init(){
+    // land on the default settled year in the reel
+    const startIdx = mod(YMAX - settledYear); // years[idx] == settledYear
+    pos = startIdx; base = startIdx;
+    buildItems(); applyTransform();
+    renderEvents();
+  }
+  init();
+})();
+</script>
+</body>
+</html>
